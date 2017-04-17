@@ -7,7 +7,9 @@
     <extension index="0">extensions\PointerLockGM</extension>
   </NewExtensions>
   <sounds name="sound"/>
-  <sprites name="sprites"/>
+  <sprites name="sprites">
+    <sprite>sprites\spr_floor</sprite>
+  </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <shaders name="shaders"/>

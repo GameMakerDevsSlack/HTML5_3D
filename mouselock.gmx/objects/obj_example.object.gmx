@@ -29,6 +29,21 @@
 
 mousex_delta = 0;
 mousey_delta = 0;
+
+x = -200;
+y = 0;
+z = 50;
+
+look_x = 0;
+look_y = 0;
+look_z = 0;
+
+look_xy_angle = 0;
+look_pz_angle = 0; //p = plane
+
+up_x = 0;
+up_y = 0;
+up_z = 1;
 </string>
           </argument>
         </arguments>
@@ -89,6 +104,36 @@ if ( _space ) exit_mouse_lock();
 mousex_delta = get_mouse_x_movement();
 mousey_delta = get_mouse_y_movement();
 
+if ( keyboard_check( ord( "Q" ) ) ) z += 10;
+if ( keyboard_check( ord( "E" ) ) ) z -= 10;
+
+var _vpara = 0;
+var _vperp = 0;
+if ( keyboard_check( ord( "A" ) ) ) _vperp = -10;
+if ( keyboard_check( ord( "D" ) ) ) _vperp =  10;
+if ( keyboard_check( ord( "W" ) ) ) _vpara =  10;
+if ( keyboard_check( ord( "S" ) ) ) _vpara = -10;
+
+if ( _vpara != 0 ) {
+    x += lengthdir_x( _vpara, look_xy_angle );
+    y += lengthdir_y( _vpara, look_xy_angle );
+}
+
+if ( _vperp != 0 ) {
+    x += lengthdir_x( _vperp, look_xy_angle-90 );
+    y += lengthdir_y( _vperp, look_xy_angle-90 );
+}
+
+look_xy_angle = point_direction( x, y, look_x, look_y );
+var _look_distance = point_distance( x, y, look_x, look_y );
+var up_x = ( look_x - x ) / _look_distance;
+var up_y = ( look_y - y ) / _look_distance;
+
+look_pz_angle = point_direction( 0, _z, _look_distance, -look_z );
+var _sin = dsin( look_pz_angle );
+up_x *= _sin;
+up_y *= _sin;
+up_z  = dcos( look_pz_angle );
 </string>
           </argument>
         </arguments>
@@ -115,11 +160,24 @@ mousey_delta = get_mouse_y_movement();
 
 draw_set_font(fnt_default);
 draw_set_color(c_black);
-draw_text(10,10,"click to lock! press space to force unlock!");
-draw_text(10,30,"locked: " + get_mouse_lock_status());
-draw_text(10,50,"X delta: " + mousex_delta);
-draw_text(10,70,"Y delta: " + mousey_delta);
-draw_text(10,90,get_mouse_lock_status());
+draw_set_halign(fa_right);
+draw_text(room_width-10,10,"click to lock! press space to force unlock!");
+draw_text(room_width-10,30,"locked: " + get_mouse_lock_status());
+draw_text(room_width-10,50,"X delta: " + mousex_delta);
+draw_text(room_width-10,70,"Y delta: " + mousey_delta);
+draw_text(room_width-10,90,get_mouse_lock_status());
+draw_set_halign(fa_left);
+
+draw_set_colour( c_white );
+d3d_start();
+d3d_set_culling( false );
+d3d_set_hidden( false );
+d3d_set_lighting( false );
+
+d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   up_x, up_y, up_z,   60, room_width/room_height, 1, 16000 );
+d3d_draw_floor( -160, -160, 0, 160, 160, 0, sprite_get_texture( spr_floor, 1 ), 1, 1 );
+d3d_end();
+d3d_set_projection_ortho( 0, 0, room_width, room_height, 0 );
 </string>
           </argument>
         </arguments>
