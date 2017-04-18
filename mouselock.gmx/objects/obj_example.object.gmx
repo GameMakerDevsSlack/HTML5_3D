@@ -29,6 +29,7 @@
 
 mousex_delta = 0;
 mousey_delta = 0;
+mouse_lock = false;
 
 x = -200;
 y = 0;
@@ -39,11 +40,40 @@ look_y = 0;
 look_z = 0;
 
 look_xy_angle = 0;
-look_pz_angle = 0; //p = plane
+look_pz_angle = 0;//p = plane
 
 up_x = 0;
 up_y = 0;
 up_z = 1;
+
+vertex_format_begin();
+vertex_format_add_position_3d();
+vertex_format_add_textcoord();
+vertex_format_add_colour();
+vertex_format_add_normal();
+vft_simple = vertex_format_end();
+
+vbf_test = vertex_create_buffer();
+var _vbuff = vbf_test;
+vertex_begin( _vbuff, vft_simple );
+vertex_position_3d( _vbuff,   0,   0, 0 ); vertex_texcoord( _vbuff, 0, 0 ); vertex_colour( _vbuff, c_blue , 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+vertex_position_3d( _vbuff, 320,   0, 0 ); vertex_texcoord( _vbuff, 1, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+vertex_position_3d( _vbuff,   0, 320, 0 ); vertex_texcoord( _vbuff, 0, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+vertex_end( vbf_test );
+
+
+
+model_test = d3d_model_create();
+d3d_model_primitive_begin( model_test, pr_trianglelist );
+d3d_model_vertex_texture_colour( model_test,     0,   0, 0,   0, 0,   c_white, 1 );
+d3d_model_vertex_texture_colour( model_test,   320,   0, 0,   1, 0,   c_white, 1 );
+d3d_model_vertex_texture_colour( model_test,     0, 320, 0,   0, 1,   c_white, 1 );
+/*
+d3d_model_vertex_texture_colour( model_test,   320,   0, 0,   1, 0,   c_white, 1 );
+d3d_model_vertex_texture_colour( model_test,   320, 320, 0,   1, 1,   c_white, 1 );
+d3d_model_vertex_texture_colour( model_test,     0, 320, 0,   0, 1,   c_white, 1 );
+*/
+d3d_model_primitive_end( model_test );
 </string>
           </argument>
         </arguments>
@@ -94,15 +124,25 @@ clear_mouse_movement();
             <kind>1</kind>
             <string>///Step
 
+if ( keyboard_check( vk_escape ) ) game_end();
+
 var _click = mouse_check_button_pressed(mb_left);
 var _space = keyboard_check_pressed(vk_space);
 
-if ( _click ) request_mouse_lock();
-if ( _space ) exit_mouse_lock();
-
-//Get mouse movements
-mousex_delta = get_mouse_x_movement();
-mousey_delta = get_mouse_y_movement();
+if ( os_browser != browser_not_a_browser ) {
+    if ( _click ) request_mouse_lock();
+    if ( _space ) exit_mouse_lock();
+    mousex_delta = get_mouse_x_movement();
+    mousey_delta = get_mouse_y_movement();
+} else {
+    if ( _click ) mouse_lock = true;
+    if ( _space ) mouse_lock = false;
+    if ( mouse_lock ) {
+        mousex_delta = window_mouse_get_x() - window_get_width()*0.5;
+        mousey_delta = window_mouse_get_y() - window_get_height()*0.5;
+        window_mouse_set( window_get_width()*0.5, window_get_height()*0.5 );
+    }
+}
 
 if ( keyboard_check( ord( "Q" ) ) ) z += 10;
 if ( keyboard_check( ord( "E" ) ) ) z -= 10;
@@ -124,16 +164,21 @@ if ( _vperp != 0 ) {
     y += lengthdir_y( _vperp, look_xy_angle-90 );
 }
 
-look_xy_angle = point_direction( x, y, look_x, look_y );
-var _look_distance = point_distance( x, y, look_x, look_y );
-var up_x = ( look_x - x ) / _look_distance;
-var up_y = ( look_y - y ) / _look_distance;
+look_xy_angle -= mousex_delta/10;
+look_pz_angle = clamp( look_pz_angle - mousey_delta/5, -90, 90 );
 
-look_pz_angle = point_direction( 0, _z, _look_distance, -look_z );
-var _sin = dsin( look_pz_angle );
-up_x *= _sin;
-up_y *= _sin;
-up_z  = dcos( look_pz_angle );
+var _xy_cos = dcos( look_xy_angle );
+var _xy_sin = dsin( look_xy_angle );
+var _pz_cos = dcos( look_pz_angle );
+var _pz_sin = dsin( look_pz_angle );
+
+look_x = x + _xy_cos*_pz_cos;
+look_y = y - _xy_sin*_pz_cos;
+look_z = z + _pz_sin;
+
+up_x = 0;// _xy_cos*_pz_sin;
+up_y = 0;//-_xy_sin*_pz_sin;
+up_z = 1;// _pz_cos;
 </string>
           </argument>
         </arguments>
@@ -158,26 +203,43 @@ up_z  = dcos( look_pz_angle );
             <kind>1</kind>
             <string>///Draw
 
-draw_set_font(fnt_default);
-draw_set_color(c_black);
-draw_set_halign(fa_right);
-draw_text(room_width-10,10,"click to lock! press space to force unlock!");
-draw_text(room_width-10,30,"locked: " + get_mouse_lock_status());
-draw_text(room_width-10,50,"X delta: " + mousex_delta);
-draw_text(room_width-10,70,"Y delta: " + mousey_delta);
-draw_text(room_width-10,90,get_mouse_lock_status());
-draw_set_halign(fa_left);
-
 draw_set_colour( c_white );
 d3d_start();
 d3d_set_culling( false );
 d3d_set_hidden( false );
 d3d_set_lighting( false );
 
+shader_set( shd_pass_through );
 d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   up_x, up_y, up_z,   60, room_width/room_height, 1, 16000 );
-d3d_draw_floor( -160, -160, 0, 160, 160, 0, sprite_get_texture( spr_floor, 1 ), 1, 1 );
+vertex_submit( vbf_test, pr_trianglelist, sprite_get_texture( spr_floor, 0 ) );
+//d3d_model_draw( model_test, -160, -160, 0, sprite_get_texture( spr_floor, 0 ) );
+//d3d_draw_floor( -160, -160, 0, 160, 160, 0, sprite_get_texture( spr_floor, 0 ), 1, 1 );
 d3d_end();
+shader_reset();
 d3d_set_projection_ortho( 0, 0, room_width, room_height, 0 );
+
+
+
+draw_set_font(fnt_default);
+draw_set_color(c_black);
+draw_set_halign(fa_right);
+draw_text(room_width-10,10,"click to lock! press space to force unlock!");
+if ( os_browser != browser_not_a_browser ) draw_text(room_width-10,30,"locked: " + get_mouse_lock_status());
+draw_text(room_width-10,50,"X delta: " + string(mousex_delta));
+draw_text(room_width-10,70,"Y delta: " + string(mousey_delta));
+/*draw_text(room_width-200,110,x);
+draw_text(room_width-200,130,y);
+draw_text(room_width-200,150,z);
+draw_text(room_width-100,110,look_x);
+draw_text(room_width-100,130,look_y);
+draw_text(room_width-100,150,look_z);*/
+draw_text(room_width-  0,110,up_x);
+draw_text(room_width-  0,130,up_y);
+draw_text(room_width-  0,150,up_z);
+draw_text(room_width-  0,170,point_distance_3d( 0, 0, 0, up_x, up_y, up_z ) );
+draw_text(room_width-  0,190,"xy=" + string( look_xy_angle ) );
+draw_text(room_width-  0,210,"pz=" + string( look_pz_angle ) );
+draw_set_halign(fa_left);
 </string>
           </argument>
         </arguments>
