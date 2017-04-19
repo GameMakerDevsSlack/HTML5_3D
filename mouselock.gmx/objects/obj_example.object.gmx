@@ -215,9 +215,35 @@ up_z = 1;// _pz_cos;
 draw_enable_alphablend( false );
 shader_set( shd_dither );
 texture_set_stage( shader_get_sampler_index( shd_dither, "u_sDither" ), global.dither_texture );
+shader_set_uniform_f( shader_get_uniform( shd_dither, "u_vTextureSize" ), 320, 240 );
 draw_surface_ext( application_surface, 0, 0, 3, 3, 0, c_white, 1 );
 shader_reset();
 draw_enable_alphablend( true );
+
+var _str = "";
+_str += "click to lock! press space to force unlock!#";
+if ( os_browser != browser_not_a_browser ) _str += "locked: " + get_mouse_lock_status() + "#";
+//draw_text(room_width-10,50,"X delta: " + string(mousex_delta));
+//draw_text(room_width-10,70,"Y delta: " + string(mousey_delta));
+/*
+draw_text(room_width-200,110,x);
+draw_text(room_width-200,130,y);
+draw_text(room_width-200,150,z);
+draw_text(room_width-100,110,look_x);
+draw_text(room_width-100,130,look_y);
+draw_text(room_width-100,150,look_z);
+draw_text(room_width-  0,110,up_x);
+draw_text(room_width-  0,130,up_y);
+draw_text(room_width-  0,150,up_z);
+draw_text(room_width-  0,170,point_distance_3d( 0, 0, 0, up_x, up_y, up_z ) );
+draw_text(room_width-  0,190,"xy=" + string( look_xy_angle ) );
+draw_text(room_width-  0,210,"pz=" + string( look_pz_angle ) );
+*/
+draw_set_font( fnt_default );
+draw_set_color( c_white );
+draw_set_halign( fa_right );
+draw_text( view_wport[0]-10, 10, _str );
+draw_set_halign(fa_left);
 </string>
           </argument>
         </arguments>
@@ -261,31 +287,6 @@ shader_reset();
 d3d_end();
 d3d_set_lighting( false );
 d3d_set_projection_ortho( 0, 0, view_wview[0], view_hview[0], 0 );
-
-
-
-draw_set_font(fnt_default);
-draw_set_color(c_black);
-draw_set_halign(fa_right);
-draw_text(room_width-10,10,"click to lock! press space to force unlock!");
-if ( os_browser != browser_not_a_browser ) draw_text(room_width-10,30,"locked: " + get_mouse_lock_status());
-draw_text(room_width-10,50,"X delta: " + string(mousex_delta));
-draw_text(room_width-10,70,"Y delta: " + string(mousey_delta));
-/*draw_text(room_width-200,110,x);
-draw_text(room_width-200,130,y);
-draw_text(room_width-200,150,z);
-draw_text(room_width-100,110,look_x);
-draw_text(room_width-100,130,look_y);
-draw_text(room_width-100,150,look_z);*/
-draw_text(room_width-  0,110,up_x);
-draw_text(room_width-  0,130,up_y);
-draw_text(room_width-  0,150,up_z);
-draw_text(room_width-  0,170,point_distance_3d( 0, 0, 0, up_x, up_y, up_z ) );
-draw_text(room_width-  0,190,"xy=" + string( look_xy_angle ) );
-draw_text(room_width-  0,210,"pz=" + string( look_pz_angle ) );
-draw_set_halign(fa_left);
-
-draw_circle_colour( 8, 8, 8, _colour, _colour, false );
 </string>
           </argument>
         </arguments>
