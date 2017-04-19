@@ -35,25 +35,21 @@ vec4 DoLighting2(vec4 vertexcolour, vec4 objectspacepos)
     return accumcol;
 }
 
-void main()
-{
+void main() {
     
     vec4 object_space_pos = vec4( in_Position.x, in_Position.y, in_Position.z, 1.0);
     gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * object_space_pos; 
+    /*
     gl_Position.xyz /= gl_Position.w;
     gl_Position.x = (floor(gl_Position.x * 80.0) / 80.0);
     gl_Position.y = (floor(gl_Position.y * 60.0) / 60.0);
     gl_Position.xyz *= gl_Position.w;
-    
-    //for (int i = 0; i < MAX_VS_LIGHTS; i++){
-        //colLight *= ((-dot(in_Normal, normalize(vec3(gm_Lights_PosRange[i].x, gm_Lights_PosRange[i].y, gm_Lights_PosRange[i].z)))) / 2.) * length(vec3(lightX, lightY, lightZ))
-        //colLight += DoPointLight(object_space_pos, in_Normal, gm_Lights_PosRange[i], gm_Lights_Colour[i]);
-    //}
-    
+    */
     affine = vec3(in_TextureCoord.x * gl_Position.z, in_TextureCoord.y * gl_Position.z, gl_Position.z);
     v_vColour = DoLighting2(in_Colour, object_space_pos) + CalcFogFactor(object_space_pos);
     v_vTexcoord = in_TextureCoord;
     v_vNormal = in_Normal;
+    
 }
 //######################_==_YOYO_SHADER_MARKER_==_######################@~varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
@@ -61,6 +57,11 @@ varying vec3 v_vNormal;
 varying vec3 affine;
 
 void main() {
-   vec2 uv = affine.xy / affine.z;
-   gl_FragColor = v_vColour * texture2D( gm_BaseTexture, uv );
+    
+    gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
+    
+    /*
+    vec2 uv = affine.xy / affine.z;
+    gl_FragColor = v_vColour * texture2D( gm_BaseTexture, uv );
+    */
 }

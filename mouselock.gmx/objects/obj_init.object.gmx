@@ -28,6 +28,7 @@
             <string>///Create
 
 surface_resize( application_surface, 320, 240 );
+application_surface_draw_enable( false );
 
 room_goto_next();
 </string>
