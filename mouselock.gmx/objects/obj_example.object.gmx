@@ -27,6 +27,9 @@
             <kind>1</kind>
             <string>///Create
 
+test_smoothed_timer = 100;
+test_frame_start_time = get_timer();
+
 mousex_delta = 0;
 mousey_delta = 0;
 mouse_lock = false;
@@ -219,25 +222,37 @@ draw_surface_ext( application_surface, 0, 0, 3, 3, 0, c_white, 1 );
 shader_reset();
 draw_enable_alphablend( true );
 
+test_smoothed_timer = lerp( test_smoothed_timer, get_timer() - test_frame_start_time, 0.008 );
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw GUI
+
 var _str = "";
-_str += "click to lock! press space to force unlock!#";
-if ( os_browser != browser_not_a_browser ) _str += "locked: " + get_mouse_lock_status() + "#";
-//draw_text(room_width-10,50,"X delta: " + string(mousex_delta));
-//draw_text(room_width-10,70,"Y delta: " + string(mousey_delta));
-/*
-draw_text(room_width-200,110,x);
-draw_text(room_width-200,130,y);
-draw_text(room_width-200,150,z);
-draw_text(room_width-100,110,look_x);
-draw_text(room_width-100,130,look_y);
-draw_text(room_width-100,150,look_z);
-draw_text(room_width-  0,110,up_x);
-draw_text(room_width-  0,130,up_y);
-draw_text(room_width-  0,150,up_z);
-draw_text(room_width-  0,170,point_distance_3d( 0, 0, 0, up_x, up_y, up_z ) );
-draw_text(room_width-  0,190,"xy=" + string( look_xy_angle ) );
-draw_text(room_width-  0,210,"pz=" + string( look_pz_angle ) );
-*/
+_str += "CLICK TO LOCK MOUSE!#PRESS SPACE TO UNLOCK MOUSE!#WASDQE TO MOVE!";
+if ( os_browser != browser_not_a_browser ) _str += "#LOCKED: " + get_mouse_lock_status();
+_str += "##FPS=" + string_format( fps, 4, 0 ) + "  ";
+_str += "#SMOOTHED DRAW TIME=" + string_format( test_smoothed_timer, 4, 0 ) + "us";
+
 draw_set_font( fnt_default );
 draw_set_color( c_white );
 draw_set_halign( fa_right );
@@ -267,6 +282,7 @@ draw_set_halign( fa_left );
             <kind>1</kind>
             <string>///Draw
 
+test_frame_start_time = get_timer();
 var _colour = make_colour_hsv( ( current_time/20 ) mod 255, 255, 255 );
 
 draw_set_colour( c_white );
@@ -277,11 +293,19 @@ d3d_set_lighting( true );
 d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   up_x, up_y, up_z,   60, view_wview[0]/view_hview[0], 1, 16000 );
 
 d3d_light_define_ambient( c_black );
-d3d_light_define_point( 0,  0, 0, 20*( 0.5 + 0.5*dsin( current_time/2 ) ),   1000,   c_white ); d3d_light_enable( 0, true );
-d3d_light_define_point( 1,  320, 320, 50,   1000,  _colour  ); d3d_light_enable( 1, true );
+d3d_light_define_point( 0,  120 + lengthdir_x( 100, current_time/10 ), 100 + lengthdir_y( 120, current_time/10 ), 50,   200,   c_white );
+d3d_light_define_point( 1,    0,   0, 50,   100,  _colour  );
+d3d_light_define_point( 2,  320,   0, 50,   100,  _colour  );
+d3d_light_define_point( 3,  320, 320, 50,   100,  _colour  );
+d3d_light_define_point( 4,    0, 320, 50,   100,  _colour  );
+d3d_light_enable( 0, true );
+d3d_light_enable( 1, true );
+d3d_light_enable( 2, true );
+d3d_light_enable( 3, true );
+d3d_light_enable( 4, true );
 
 shader_set( shd_psx );
-shader_set_uniform_f( shader_get_uniform( shd_psx, "u_vAmbientColour" ), 0.0, 0.0, 0.0, 0.0 );
+shader_set_uniform_f( shader_get_uniform( shd_psx, "u_vAmbientColour" ), 0.1, 0.1, 0.13, 0.0 );
 vertex_submit( vbf_test, pr_trianglelist, sprite_get_texture( spr_floor, 0 ) );
 shader_reset();
 d3d_end();

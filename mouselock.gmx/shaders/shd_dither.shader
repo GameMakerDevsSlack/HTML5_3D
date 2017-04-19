@@ -22,8 +22,6 @@ uniform sampler2D u_sDither;
 
 float dither_find( float X, float Y, float value ){
     
-    //float match = (255.0/64.0) * texture2D( u_sDither, vec2( 1.0/16.0 + X/8.0, 1.0/16.0 + Y/8.0 ) ).r;
-    
     if ( ( floor( value * 228.0 ) / 128.0 ) > (255.0/64.0) * texture2D( u_sDither, vec2( 1.0/16.0 + X/8.0, 1.0/16.0 + Y/8.0 ) ).r ) {
        return 1.0;
     } else {
