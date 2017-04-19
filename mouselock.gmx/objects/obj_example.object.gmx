@@ -56,8 +56,12 @@ vft_simple = vertex_format_end();
 vbf_test = vertex_create_buffer();
 var _vbuff = vbf_test;
 vertex_begin( _vbuff, vft_simple );
-vertex_position_3d( _vbuff,   0,   0, 0 ); vertex_texcoord( _vbuff, 0, 0 ); vertex_colour( _vbuff, c_blue , 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+vertex_position_3d( _vbuff,   0,   0, 0 ); vertex_texcoord( _vbuff, 0, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
 vertex_position_3d( _vbuff, 320,   0, 0 ); vertex_texcoord( _vbuff, 1, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+vertex_position_3d( _vbuff,   0, 320, 0 ); vertex_texcoord( _vbuff, 0, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+
+vertex_position_3d( _vbuff, 320,   0, 0 ); vertex_texcoord( _vbuff, 1, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+vertex_position_3d( _vbuff, 320, 320, 0 ); vertex_texcoord( _vbuff, 1, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
 vertex_position_3d( _vbuff,   0, 320, 0 ); vertex_texcoord( _vbuff, 0, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
 vertex_end( vbf_test );
 
@@ -134,6 +138,10 @@ if ( os_browser != browser_not_a_browser ) {
     if ( _space ) exit_mouse_lock();
     mousex_delta = get_mouse_x_movement();
     mousey_delta = get_mouse_y_movement();
+    if ( os_browser == browser_firefox ) {
+        mousex_delta *= 8;
+        mousey_delta *= 8;
+    }
 } else {
     if ( _click ) mouse_lock = true;
     if ( _space ) mouse_lock = false;
@@ -203,20 +211,27 @@ up_z = 1;// _pz_cos;
             <kind>1</kind>
             <string>///Draw
 
+var _colour = make_colour_hsv( ( current_time/20 ) mod 255, 255, 255 );
+
 draw_set_colour( c_white );
 d3d_start();
 d3d_set_culling( false );
 d3d_set_hidden( false );
-d3d_set_lighting( false );
+d3d_set_lighting( true );
+d3d_light_define_ambient( c_black );
+//d3d_light_define_point( 0,  0, 0, 20*( 0.5 + 0.5*dsin( current_time/2 ) ),   1000,   c_white ); d3d_light_enable( 0, true );
 
-shader_set( shd_pass_through );
-d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   up_x, up_y, up_z,   60, room_width/room_height, 1, 16000 );
+d3d_light_define_point( 0,  320, 320, 20,   1000,  _colour  ); d3d_light_enable( 0, true );
+
+shader_set( shd_psx );
+d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   up_x, up_y, up_z,   60, view_wview[0]/view_hview[0], 1, 16000 );
 vertex_submit( vbf_test, pr_trianglelist, sprite_get_texture( spr_floor, 0 ) );
 //d3d_model_draw( model_test, -160, -160, 0, sprite_get_texture( spr_floor, 0 ) );
 //d3d_draw_floor( -160, -160, 0, 160, 160, 0, sprite_get_texture( spr_floor, 0 ), 1, 1 );
 d3d_end();
+d3d_set_lighting( false );
 shader_reset();
-d3d_set_projection_ortho( 0, 0, room_width, room_height, 0 );
+d3d_set_projection_ortho( 0, 0, view_wview[0], view_hview[0], 0 );
 
 
 
@@ -240,6 +255,8 @@ draw_text(room_width-  0,170,point_distance_3d( 0, 0, 0, up_x, up_y, up_z ) );
 draw_text(room_width-  0,190,"xy=" + string( look_xy_angle ) );
 draw_text(room_width-  0,210,"pz=" + string( look_pz_angle ) );
 draw_set_halign(fa_left);
+
+draw_circle_colour( 32, 32, 32, _colour, _colour, false );
 </string>
           </argument>
         </arguments>
