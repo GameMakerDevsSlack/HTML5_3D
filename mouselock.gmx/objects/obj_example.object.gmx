@@ -104,7 +104,6 @@ global.dither_texture = sprite_get_texture( global.dither_sprite, 0 );
             <kind>1</kind>
             <string>///End Step
 
-//Call this after every frame of mouse movement check!
 clear_mouse_movement();
 </string>
           </argument>
@@ -186,9 +185,9 @@ look_x = x + _xy_cos*_pz_cos;
 look_y = y - _xy_sin*_pz_cos;
 look_z = z + _pz_sin;
 
-up_x = 0;// _xy_cos*_pz_sin;
-up_y = 0;//-_xy_sin*_pz_sin;
-up_z = 1;// _pz_cos;
+up_x = 0;
+up_y = 0;
+up_z = 1;
 </string>
           </argument>
         </arguments>
@@ -243,7 +242,7 @@ draw_set_font( fnt_default );
 draw_set_color( c_white );
 draw_set_halign( fa_right );
 draw_text( view_wport[0]-10, 10, _str );
-draw_set_halign(fa_left);
+draw_set_halign( fa_left );
 </string>
           </argument>
         </arguments>
@@ -282,6 +281,7 @@ d3d_light_define_point( 0,  0, 0, 20*( 0.5 + 0.5*dsin( current_time/2 ) ),   100
 d3d_light_define_point( 1,  320, 320, 50,   1000,  _colour  ); d3d_light_enable( 1, true );
 
 shader_set( shd_psx );
+shader_set_uniform_f( shader_get_uniform( shd_psx, "u_vAmbientColour" ), 0.0, 0.0, 0.0, 0.0 );
 vertex_submit( vbf_test, pr_trianglelist, sprite_get_texture( spr_floor, 0 ) );
 shader_reset();
 d3d_end();

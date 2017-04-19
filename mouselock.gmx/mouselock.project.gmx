@@ -22,7 +22,6 @@
     <shader type="GLSLES">shaders\shd_pass_through.shader</shader>
     <shader type="GLSLES">shaders\shd_psx.shader</shader>
     <shader type="GLSLES">shaders\shd_dither.shader</shader>
-    <shader type="GLSLES">shaders\shd_dither_old.shader</shader>
   </shaders>
   <fonts name="fonts">
     <font>fonts\fnt_default</font>
