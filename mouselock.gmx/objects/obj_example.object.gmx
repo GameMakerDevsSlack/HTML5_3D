@@ -56,28 +56,28 @@ vft_simple = vertex_format_end();
 vbf_test = vertex_create_buffer();
 var _vbuff = vbf_test;
 vertex_begin( _vbuff, vft_simple );
-vertex_position_3d( _vbuff,   0,   0, 0 ); vertex_texcoord( _vbuff, 0, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
-vertex_position_3d( _vbuff, 320,   0, 0 ); vertex_texcoord( _vbuff, 1, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
-vertex_position_3d( _vbuff,   0, 320, 0 ); vertex_texcoord( _vbuff, 0, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
 
-vertex_position_3d( _vbuff, 320,   0, 0 ); vertex_texcoord( _vbuff, 1, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
-vertex_position_3d( _vbuff, 320, 320, 0 ); vertex_texcoord( _vbuff, 1, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
-vertex_position_3d( _vbuff,   0, 320, 0 ); vertex_texcoord( _vbuff, 0, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+for( var _x = 0; _x &lt; 320; _x += 64 ) {
+    for( var _y = 0; _y &lt; 320; _y += 64 ) {
+        
+        var _p_l = _x;
+        var _p_t = _y;
+        var _p_r = _x + 64;
+        var _p_b = _y + 64;
+        
+        vertex_position_3d( _vbuff, _p_l, _p_t, 0 ); vertex_texcoord( _vbuff, 0, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+        vertex_position_3d( _vbuff, _p_r, _p_t, 0 ); vertex_texcoord( _vbuff, 1, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+        vertex_position_3d( _vbuff, _p_l, _p_b, 0 ); vertex_texcoord( _vbuff, 0, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+        
+        vertex_position_3d( _vbuff, _p_r, _p_t, 0 ); vertex_texcoord( _vbuff, 1, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+        vertex_position_3d( _vbuff, _p_r, _p_b, 0 ); vertex_texcoord( _vbuff, 1, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+        vertex_position_3d( _vbuff, _p_l, _p_b, 0 ); vertex_texcoord( _vbuff, 0, 1 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
+        
+    }
+}
+
+
 vertex_end( vbf_test );
-
-
-
-model_test = d3d_model_create();
-d3d_model_primitive_begin( model_test, pr_trianglelist );
-d3d_model_vertex_texture_colour( model_test,     0,   0, 0,   0, 0,   c_white, 1 );
-d3d_model_vertex_texture_colour( model_test,   320,   0, 0,   1, 0,   c_white, 1 );
-d3d_model_vertex_texture_colour( model_test,     0, 320, 0,   0, 1,   c_white, 1 );
-/*
-d3d_model_vertex_texture_colour( model_test,   320,   0, 0,   1, 0,   c_white, 1 );
-d3d_model_vertex_texture_colour( model_test,   320, 320, 0,   1, 1,   c_white, 1 );
-d3d_model_vertex_texture_colour( model_test,     0, 320, 0,   0, 1,   c_white, 1 );
-*/
-d3d_model_primitive_end( model_test );
 </string>
           </argument>
         </arguments>
@@ -218,19 +218,17 @@ d3d_start();
 d3d_set_culling( false );
 d3d_set_hidden( false );
 d3d_set_lighting( true );
-d3d_light_define_ambient( c_black );
-//d3d_light_define_point( 0,  0, 0, 20*( 0.5 + 0.5*dsin( current_time/2 ) ),   1000,   c_white ); d3d_light_enable( 0, true );
+d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   up_x, up_y, up_z,   60, view_wview[0]/view_hview[0], 1, 16000 );
 
-d3d_light_define_point( 0,  320, 320, 20,   1000,  _colour  ); d3d_light_enable( 0, true );
+d3d_light_define_ambient( c_black );
+d3d_light_define_point( 0,  0, 0, 20*( 0.5 + 0.5*dsin( current_time/2 ) ),   1000,   c_white ); d3d_light_enable( 0, true );
+d3d_light_define_point( 1,  320, 320, 50,   1000,  _colour  ); d3d_light_enable( 1, true );
 
 shader_set( shd_psx );
-d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   up_x, up_y, up_z,   60, view_wview[0]/view_hview[0], 1, 16000 );
 vertex_submit( vbf_test, pr_trianglelist, sprite_get_texture( spr_floor, 0 ) );
-//d3d_model_draw( model_test, -160, -160, 0, sprite_get_texture( spr_floor, 0 ) );
-//d3d_draw_floor( -160, -160, 0, 160, 160, 0, sprite_get_texture( spr_floor, 0 ), 1, 1 );
+shader_reset();
 d3d_end();
 d3d_set_lighting( false );
-shader_reset();
 d3d_set_projection_ortho( 0, 0, view_wview[0], view_hview[0], 0 );
 
 
@@ -256,7 +254,7 @@ draw_text(room_width-  0,190,"xy=" + string( look_xy_angle ) );
 draw_text(room_width-  0,210,"pz=" + string( look_pz_angle ) );
 draw_set_halign(fa_left);
 
-draw_circle_colour( 32, 32, 32, _colour, _colour, false );
+draw_circle_colour( 8, 8, 8, _colour, _colour, false );
 </string>
           </argument>
         </arguments>

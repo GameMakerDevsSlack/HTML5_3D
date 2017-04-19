@@ -24,6 +24,6 @@ varying vec3 v_vNormal;
 
 void main() {
     
-    gl_FragColor = vec4( v_vNormal, 1.0 ) * texture2D( gm_BaseTexture, v_vTexcoord );
+    gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
     
 }

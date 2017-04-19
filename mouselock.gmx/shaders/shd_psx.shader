@@ -3,46 +3,16 @@ attribute vec2 in_TextureCoord;
 attribute vec4 in_Colour;
 attribute vec3 in_Normal;
 
-//attribute vec4 gm_AmbientColour;// rgb=colour, a=1
-//attribute vec4 gm_Lights_Direction[MAX_VS_LIGHTS];// normalised direction
-//attribute vec4 gm_Lights_PosRange[MAX_VS_LIGHTS];// X,Y,Z position,  W range
-//attribute vec4 gm_Lights_Colour[MAX_VS_LIGHTS];// rgb=colour, a=1
-
 varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
 varying vec3 v_vNormal;
 varying vec3 affine;
 
-
-//UNIFORMS
-
-
-//
-/*
-vec4 DoPointLight(vec3 ws_pos, vec3 ws_normal, vec4 posrange, vec4 diffusecol)
+vec4 DoLight(vec3 ws_pos, vec3 ws_normal, vec4 posrange, vec4 diffusecol)
 {
     vec3 diffvec = ws_pos - posrange.xyz;
     float veclen = length(diffvec);
     diffvec /= veclen;
-    float atten = 1.0 / (veclen / posrange.w);
-    if (veclen > posrange.w){
-        atten = 0.;
-    }
-    float atten = clamp( (1.0 - (veclen / posrange.w)), 0.0, 1.0);
-    float dotresult = dot(ws_normal, diffvec);
-    dotresult = max(0.0, dotresult);
-    return dotresult * atten * diffusecol;
-}
-*/
-vec4 DPL(vec3 ws_pos, vec3 ws_normal, vec4 posrange, vec4 diffusecol)
-{
-    vec3 diffvec = ws_pos - posrange.xyz;
-    float veclen = length(diffvec);
-    diffvec /= veclen;/*
-    float atten = 1.0 / (veclen / posrange.w);
-    if (veclen > posrange.w){
-        atten = 0.;
-    }*/
     float atten = clamp( (1.0 - (veclen / posrange.w)), 0.0, 1.0);
     float dotresult = dot(ws_normal, diffvec);
     dotresult = max(0.0, dotresult);
@@ -56,7 +26,7 @@ vec4 DoLighting2(vec4 vertexcolour, vec4 objectspacepos)
     vec4 accumcol = vec4(0.0, 0.0, 0.0, 1.0);
     
     for (int i = 0; i < MAX_VS_LIGHTS; i++){
-        accumcol += DPL(ws_pos, -normalize(in_Normal), gm_Lights_PosRange[i], gm_Lights_Colour[i]);
+        accumcol += DoLight(ws_pos, -normalize(in_Normal), gm_Lights_PosRange[i], gm_Lights_Colour[i]);
     }
     //accumcol.rgb *= .3;
     accumcol *= vertexcolour;
@@ -91,9 +61,6 @@ varying vec3 v_vNormal;
 varying vec3 affine;
 
 void main() {
-   gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
-    /*
    vec2 uv = affine.xy / affine.z;
    gl_FragColor = v_vColour * texture2D( gm_BaseTexture, uv );
-   */
 }
