@@ -34,7 +34,7 @@ mousex_delta = 0;
 mousey_delta = 0;
 mouse_lock = false;
 
-x = -200;
+x = -1400;
 y = 0;
 z = 50;
 
@@ -45,9 +45,15 @@ look_z = 0;
 look_xy_angle = 0;
 look_pz_angle = 0;//p = plane
 
-up_x = 0;
-up_y = 0;
-up_z = 1;
+test_light_x = 0;
+test_light_y = 0;
+test_light_z = 0;
+test_sound_playing = false;
+test_sound_distance = 0;
+test_sound_mix = 0;
+test_sound_volume = 0;
+
+
 
 vertex_format_begin();
 vertex_format_add_position_3d();
@@ -134,8 +140,8 @@ clear_mouse_movement();
 
 if ( keyboard_check( vk_escape ) ) game_end();
 
-var _click = mouse_check_button_pressed(mb_left);
-var _space = keyboard_check_pressed(vk_space);
+var _click = mouse_check_button_pressed( mb_left );
+var _space = keyboard_check_pressed( vk_space );
 
 if ( os_browser != browser_not_a_browser ) {
     if ( _click ) request_mouse_lock();
@@ -161,10 +167,10 @@ if ( keyboard_check( ord( "E" ) ) ) z -= 10;
 
 var _vpara = 0;
 var _vperp = 0;
-if ( keyboard_check( ord( "A" ) ) ) _vperp = -10;
-if ( keyboard_check( ord( "D" ) ) ) _vperp =  10;
-if ( keyboard_check( ord( "W" ) ) ) _vpara =  10;
-if ( keyboard_check( ord( "S" ) ) ) _vpara = -10;
+if ( keyboard_check( ord( "A" ) ) ) _vperp = -2;
+if ( keyboard_check( ord( "D" ) ) ) _vperp =  2;
+if ( keyboard_check( ord( "W" ) ) ) _vpara =  2;
+if ( keyboard_check( ord( "S" ) ) ) _vpara = -2;
 
 if ( _vpara != 0 ) {
     x += lengthdir_x( _vpara, look_xy_angle );
@@ -188,9 +194,25 @@ look_x = x + _xy_cos*_pz_cos;
 look_y = y - _xy_sin*_pz_cos;
 look_z = z + _pz_sin;
 
-up_x = 0;
-up_y = 0;
-up_z = 1;
+
+
+test_light_x = 120 + lengthdir_x( 100, current_time/10 );
+test_light_y = 100 + lengthdir_y( 120, current_time/10 );
+test_light_z = 50;
+
+if ( ( current_time mod 1500 ) &lt; 100 ) {
+    wa_play_sound( global.snd_sine_440 );
+    test_sound_playing = true;
+} else if ( test_sound_playing ) {
+    wa_stop_sound( global.snd_sine_440 );
+    test_sound_playing = false;
+}
+
+test_sound_distance = point_distance_3d( x, y, z, test_light_x, test_light_y, test_light_z );
+test_sound_mix = lerp( 0.9, 0.3, sound_falloff_curve( test_sound_distance, 100, 1000, 0.4 ) );
+test_sound_volume = lerp( 0, 1, sound_falloff_curve( test_sound_distance, 100, 2000, 0.7 ) );
+wa_set_effect_property( global.snd_sine_440_effect, "mix", test_sound_mix );
+wa_set_volume( global.snd_sine_440, test_sound_volume );
 </string>
           </argument>
         </arguments>
@@ -252,6 +274,9 @@ _str += "CLICK TO LOCK MOUSE!#PRESS SPACE TO UNLOCK MOUSE!#WASDQE TO MOVE!";
 if ( os_browser != browser_not_a_browser ) _str += "#LOCKED: " + get_mouse_lock_status();
 _str += "##FPS=" + string_format( fps, 4, 0 ) + "  ";
 _str += "#SMOOTHED DRAW TIME=" + string_format( test_smoothed_timer, 4, 0 ) + "us";
+_str += "#SOUND DISTANCE=" + string_format( test_sound_distance, 4, 0 );
+_str += "#SOUND MIX=" + string_format( test_sound_mix, 4, 2 );
+_str += "#SOUND VOLUME=" + string_format( test_sound_volume, 4, 2 );
 
 draw_set_font( fnt_default );
 draw_set_color( c_white );
@@ -290,10 +315,10 @@ d3d_start();
 d3d_set_culling( false );
 d3d_set_hidden( false );
 d3d_set_lighting( true );
-d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   up_x, up_y, up_z,   60, view_wview[0]/view_hview[0], 1, 16000 );
+d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   0, 0, 1,   60, view_wview[0]/view_hview[0], 1, 16000 );
 
 d3d_light_define_ambient( c_black );
-d3d_light_define_point( 0,  120 + lengthdir_x( 100, current_time/10 ), 100 + lengthdir_y( 120, current_time/10 ), 50,   200,   c_white );
+d3d_light_define_point( 0,  test_light_x, test_light_y, test_light_z,   200,   c_white );
 d3d_light_define_point( 1,    0,   0, 50,   100,  _colour  );
 d3d_light_define_point( 2,  320,   0, 50,   100,  _colour  );
 d3d_light_define_point( 3,  320, 320, 50,   100,  _colour  );

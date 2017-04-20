@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -27,12 +27,9 @@
             <kind>1</kind>
             <string>///Create
 
-surface_resize( application_surface, 320, 240 );
-application_surface_draw_enable( false );
-
-instance_create( 0, 0, obj_sound );
-
-room_goto_next();
+global.snd_sine_440 = wa_create_sound( wa_sine, 440 );
+global.snd_sine_440_effect = wa_create_effect_reverb( 2, 0.5, 0.5, 0.5 );
+wa_attach_effect( global.snd_sine_440, global.snd_sine_440_effect );
 </string>
           </argument>
         </arguments>

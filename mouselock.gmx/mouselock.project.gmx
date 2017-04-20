@@ -5,6 +5,7 @@
   </Configs>
   <NewExtensions>
     <extension index="0">extensions\PointerLockGM</extension>
+    <extension index="1">extensions\GMWA</extension>
   </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
@@ -17,6 +18,7 @@
     <script>scripts\cross_product.gml</script>
     <script>scripts\cross_product_normalised.gml</script>
     <script>scripts\dither_make_sprite.gml</script>
+    <script>scripts\sound_falloff_curve.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_pass_through.shader</shader>
@@ -28,6 +30,7 @@
   </fonts>
   <objects name="objects">
     <object>objects\obj_init</object>
+    <object>objects\obj_sound</object>
     <object>objects\obj_example</object>
   </objects>
   <rooms name="rooms">
