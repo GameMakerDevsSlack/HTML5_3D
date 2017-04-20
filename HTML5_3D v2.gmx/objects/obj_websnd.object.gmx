@@ -34,7 +34,7 @@ websnd_sine_440_pan    = VERY_SMALL;
 websnd_sine_440_reverb = VERY_SMALL;
 
 if ( in_browser() ) {
-    websnd_sine_440        = wa_create_sound( wa_sine, 440 );
+    websnd_sine_440        = wa_create_sound_ext( wa_sine, 440, 0.2, 1, 0.01 );
     websnd_sine_440_reverb = wa_create_effect_reverb( 2, 0.5, 0.5, 0.5 );
     websnd_sine_440_pan    = wa_create_effect_stereopanner( 0 );
     wa_attach_effect( websnd_sine_440, websnd_sine_440_pan );
@@ -43,7 +43,7 @@ if ( in_browser() ) {
 
 global.websnd_prop_sine_440 = websnd_define_properties( websnd_sine_440, websnd_sine_440_pan, websnd_sine_440_reverb,
                                                         1.0, 50, 2000, 0.7,
-                                                        0.0, 1.0, 0, 1500, 0.3 );
+                                                        0.0, 0.0, 0, 1500, 0.3 );
 </string>
           </argument>
         </arguments>

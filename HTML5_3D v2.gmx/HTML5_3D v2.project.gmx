@@ -3,7 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="1" name="datafiles">
+  <datafiles number="2" name="datafiles">
     <datafile>
       <name>simple.obj</name>
       <exists>-1</exists>
@@ -20,6 +20,23 @@
         </Config>
       </ConfigOptions>
       <filename>simple.obj</filename>
+    </datafile>
+    <datafile>
+      <name>thing.obj</name>
+      <exists>-1</exists>
+      <size>6074</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>thing.obj</filename>
     </datafile>
   </datafiles>
   <NewExtensions>
@@ -55,7 +72,8 @@
       <script>scripts\gamepad_button_check_pressed_any.gml</script>
     </scripts>
     <script>scripts\__d3d_model_load_ext.gml</script>
-    <script>scripts\model_load_ext.gml</script>
+    <script>scripts\model_load_ext_paul.gml</script>
+    <script>scripts\model_load_ext_zoltan.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_pass_through.shader</shader>

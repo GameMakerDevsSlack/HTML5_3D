@@ -64,6 +64,8 @@ for( var _x = 0; _x &lt; 320; _x += 64 ) {
 }
 
 vertex_end( vbf_test );
+
+//model_test = model_load_ext_zoltan( "thing.obj", false );
 </string>
           </argument>
         </arguments>
@@ -96,7 +98,7 @@ test_light_z = 50;
 
 if ( ( current_time mod 1500 ) &lt; 100 ) {
     if( !test_sound_playing ) {
-        websnd_play( global.websnd_prop_sine_440 );
+        //websnd_play( global.websnd_prop_sine_440 );
         test_sound_playing = true;
     }
 } else {
@@ -185,6 +187,7 @@ draw_set_halign( fa_left );
             <string>///Draw
 
 vertex_submit( vbf_test, pr_trianglelist, sprite_get_texture( spr_floor, 0 ) );
+d3d_model_draw( model_test, 0, 0, 0, -1 );
 </string>
           </argument>
         </arguments>

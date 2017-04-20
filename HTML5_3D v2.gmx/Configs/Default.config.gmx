@@ -235,7 +235,7 @@
     <option_html5_allow_fullscreen>False</option_html5_allow_fullscreen>
     <option_html5_alwaysreload>False</option_html5_alwaysreload>
     <option_html5_browser_title>HTML5_3D v1</option_html5_browser_title>
-    <option_html5_centergame>False</option_html5_centergame>
+    <option_html5_centergame>True</option_html5_centergame>
     <option_html5_facebook_app_display_name></option_html5_facebook_app_display_name>
     <option_html5_facebook_appid></option_html5_facebook_appid>
     <option_html5_facebook_enable>0</option_html5_facebook_enable>
@@ -651,10 +651,10 @@
     <option_xbone_require_xbox_live>True</option_xbone_require_xbox_live>
     <option_xbone_revision_version>0</option_xbone_revision_version>
     <option_xbone_scale>-1</option_xbone_scale>
-    <option_xbone_service_config_id></option_xbone_service_config_id>
+    <option_xbone_service_config_id>1234ABCD-1234-1234-1234-123456789ABC</option_xbone_service_config_id>
     <option_xbone_splash_screen_colour>#FFFFFF</option_xbone_splash_screen_colour>
     <option_xbone_texture_page>1024</option_xbone_texture_page>
-    <option_xbone_title_id></option_xbone_title_id>
+    <option_xbone_title_id>1234ABCD</option_xbone_title_id>
   </Options>
   <ConfigConstants/>
 </Config>

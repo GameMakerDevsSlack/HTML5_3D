@@ -41,9 +41,6 @@ look_z = 0;
 
 look_xy_angle = 0;
 look_pz_angle = 0;//p = plane
-
-//model_test = d3d_model_create();
-//model_load_ext( model_test, "simple.obj", false, false, 1 );
 </string>
           </argument>
         </arguments>
@@ -121,15 +118,15 @@ if ( !mouse_locked ) {
     mouse_dy = 0;
 }
 
-if ( keyboard_check( ord( "Q" ) ) ) z += 10;
-if ( keyboard_check( ord( "E" ) ) ) z -= 10;
+if ( keyboard_check( ord( "Q" ) ) ) z += 2;
+if ( keyboard_check( ord( "E" ) ) ) z -= 2;
 
 var _vpara = 0;
 var _vperp = 0;
-if ( keyboard_check( ord( "A" ) ) ) _vperp = -10;
-if ( keyboard_check( ord( "D" ) ) ) _vperp =  10;
-if ( keyboard_check( ord( "W" ) ) ) _vpara =  10;
-if ( keyboard_check( ord( "S" ) ) ) _vpara = -10;
+if ( keyboard_check( ord( "A" ) ) ) _vperp = -2;
+if ( keyboard_check( ord( "D" ) ) ) _vperp =  2;
+if ( keyboard_check( ord( "W" ) ) ) _vpara =  2;
+if ( keyboard_check( ord( "S" ) ) ) _vpara = -2;
 
 if ( _vpara != 0 ) {
     x += lengthdir_x( _vpara, look_xy_angle );

@@ -133,7 +133,7 @@ var _colour = make_colour_hsv( ( current_time/20 ) mod 255, 255, 255 );
 draw_set_colour( c_white );
 d3d_start();
 d3d_set_culling( false );
-d3d_set_hidden( false );
+d3d_set_hidden( true );
 with( obj_example ) d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   0, 0, 1,   60, view_wview[0]/view_hview[0], 1, 16000 );
 
 /*
