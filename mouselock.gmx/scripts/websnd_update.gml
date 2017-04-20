@@ -25,37 +25,8 @@ var _reverb = lerp( _properties[e_websnd.max_reverb], _properties[e_websnd.min_r
                                                                                                               _properties[e_websnd.max_reverb_dist],
                                                                                                               _properties[e_websnd.reverb_bias] ) );
 
-
-/*
-var _rx = _y1*_z2 - _z1*_y2;
-var _ry = _z1*_x2 - _x1*_z2;
-var _rz = _x1*_y2 - _y1*_x2;
-var _r = 1/sqrt( _rx*_rx + _ry*_ry + _rz*_rz );
-*/
-/*
-var _forward_x = _lx - _x1;
-var _forward_y = _ly - _y1;
-var _forward_z = _lz - _z1;
-
-var _sound_x = _x2 - _x1;
-var _sound_y = _y2 - _y1;
-var _sound_z = _z2 - _z1;
-
-var _rx = -_forward_y;
-var _ry =  _forward_x;
-*/
 var _pan = fixed_dot_product_3d_normalised( _y1 - _ly, _lx - _x1,         0,
                                             _x2 - _x1, _y2 - _y1, _z2 - _z1 );
-/*
-var _r = 1/sqrt( _rx*_rx + _ry*_ry );
-var _s = 1/sqrt( _sound_x*_sound_x + _sound_y*_sound_y + _sound_z*_sound_z );
-_rx *= _r;
-_ry *= _r;
-_sound_x *= _s;
-_sound_y *= _s;
-_sound_z *= _s;
-*/
-//var _pan = /*_rx*_sound_x + _ry*_sound_y;*/ fixed_dot_product_3d_normalised( _rx, _ry, 0, _sound_x, _sound_y, _sound_z );
 
 _properties[@e_websnd.calc_distance] = _distance;
 _properties[@e_websnd.calc_volume  ] = _volume;
