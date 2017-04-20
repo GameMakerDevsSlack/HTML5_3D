@@ -33,8 +33,7 @@ if ( !DEBUG ) {
 }
 
 persistent = true;
-
-debug_visible = true;
+debug_visible = false;
 
 test_light_x = 0;
 test_light_y = 0;
@@ -135,25 +134,30 @@ websnd_update( global.websnd_prop_sine_440,
             <kind>1</kind>
             <string>///Draw GUI
 
+var _str = "";
+_str += "CLICK TO LOCK MOUSE!#SPACE TO UNLOCK MOUSE!#WASD TO MOVE!";
+
 if ( debug_visible ) {
     
-    var _str = "";
-    _str += "CLICK TO LOCK MOUSE!#PRESS SPACE TO UNLOCK MOUSE!#WASDQE TO MOVE!";
-    if ( in_browser() ) _str += "#LOCKED: " + get_mouse_lock_status();
-    _str += "##FPS=" + string_format( fps, 4, 0 ) + "  ";
+    _str += "#FPS=" + string_format( fps, 4, 0 ) + "  ";
     _str += "#SMOOTHED DRAW TIME=" + string_format( obj_screen.smoothed_timer, 4, 0 ) + "us";
     _str += "#SOUND DISTANCE=" + string_format( global.websnd_prop_sine_440[e_websnd.calc_distance], 4, 0 );
     _str += "#SOUND MIX=" + string_format( global.websnd_prop_sine_440[e_websnd.calc_reverb], 4, 2 );
     _str += "#SOUND VOLUME=" + string_format( global.websnd_prop_sine_440[e_websnd.calc_volume], 4, 2 );
     _str += "#SOUND PAN=" + string_format( global.websnd_prop_sine_440[e_websnd.pan], 4, 2 );
-    
-    draw_set_font( fnt_default );
-    draw_set_color( c_white );
-    draw_set_halign( fa_right );
-    draw_text( view_wport[0]-10, 10, _str );
-    draw_set_halign( fa_left );
+    if ( in_browser() ) _str += "#LOCKED: " + get_mouse_lock_status();
 
+} else {
+    
+    _str += "#PRESS 1 TO SHOW DEBUG!";
+    
 }
+
+draw_set_font( fnt_default );
+draw_set_color( c_white );
+draw_set_halign( fa_right );
+draw_text( view_wport[0]-10, 10, _str );
+draw_set_halign( fa_left );
 </string>
           </argument>
         </arguments>

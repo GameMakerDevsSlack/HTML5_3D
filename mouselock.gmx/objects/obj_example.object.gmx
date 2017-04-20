@@ -27,8 +27,8 @@
             <kind>1</kind>
             <string>///Create
 
-mousex_delta = 0;
-mousey_delta = 0;
+mouse_dx = 0;
+mouse_dy = 0;
 mouse_lock = false;
 
 x = -1400;
@@ -96,22 +96,27 @@ var _click = mouse_check_button_pressed( mb_left );
 var _space = keyboard_check_pressed( vk_space );
 
 if ( in_browser() ) {
-    if ( _click ) request_mouse_lock();
-    if ( _space ) exit_mouse_lock();
-    mousex_delta = get_mouse_x_movement();
-    mousey_delta = get_mouse_y_movement();
+    mouse_lock = get_mouse_lock_status();
+    if ( _click ) and ( !mouse_lock ) request_mouse_lock();
+    if ( _space ) and ( mouse_lock ) exit_mouse_lock();
+    mouse_dx = get_mouse_x_movement();
+    mouse_dy = get_mouse_y_movement();
 } else {
     if ( _click ) mouse_lock = true;
     if ( _space ) mouse_lock = false;
     if ( mouse_lock ) {
-        mousex_delta = window_mouse_get_x() - window_get_width()*0.5;
-        mousey_delta = window_mouse_get_y() - window_get_height()*0.5;
+        mouse_dx = window_mouse_get_x() - window_get_width()*0.5;
+        mouse_dy = window_mouse_get_y() - window_get_height()*0.5;
         window_mouse_set( window_get_width()*0.5, window_get_height()*0.5 );
     }
 }
+if ( !mouse_lock ) {
+    mouse_dx = 0;
+    mouse_dy = 0;
+}
 
-if ( keyboard_check( ord( "Q" ) ) ) z += 10;
-if ( keyboard_check( ord( "E" ) ) ) z -= 10;
+//if ( keyboard_check( ord( "Q" ) ) ) z += 10;
+//if ( keyboard_check( ord( "E" ) ) ) z -= 10;
 
 var _vpara = 0;
 var _vperp = 0;
@@ -130,8 +135,8 @@ if ( _vperp != 0 ) {
     y += lengthdir_y( _vperp, look_xy_angle-90 );
 }
 
-look_xy_angle -= mousex_delta/10;
-look_pz_angle = clamp( look_pz_angle - mousey_delta/5, -90, 90 );
+look_xy_angle -= mouse_dx/10;
+look_pz_angle = clamp( look_pz_angle - mouse_dy/5, -90, 90 );
 
 var _xy_cos = dcos( look_xy_angle );
 var _xy_sin = dsin( look_xy_angle );
