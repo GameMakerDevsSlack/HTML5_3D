@@ -20,12 +20,8 @@ varying vec4 v_vColour;
 uniform vec2 u_vTextureSize;
 uniform sampler2D u_sDither;
 
-float dither_find( float X, float Y, float value ){
-    if ( ( floor( value * 228.0 ) / 128.0 ) > (255.0/64.0) * texture2D( u_sDither, vec2( X/8.0, Y/8.0 ) ).r ) {
-       return 1.0;
-    } else {
-       return 0.0;   
-    }
+float dither_find( vec2 pos, float value ){
+    return step( (255.0/64.0) * texture2D( u_sDither, pos/8.0 ).r, floor( value * 228.0 ) / 128.0 );
 }
 
 float luma( vec4 colour ) {
@@ -33,8 +29,6 @@ float luma( vec4 colour ) {
 }
 
 void main() {
-    float X = mod( ( v_vTexcoord.x * u_vTextureSize.x ), 8.0 );
-    float Y = mod( ( v_vTexcoord.y * u_vTextureSize.y ), 8.0 );
     vec4 col = texture2D( gm_BaseTexture, v_vTexcoord );
-    gl_FragColor = vec4( mix( col.rgb, col.rgb * dither_find( X, Y, luma(col) ), 0.2 ), 1.0 );
+    gl_FragColor = vec4( mix( col.rgb, col.rgb * dither_find( mod( v_vTexcoord * u_vTextureSize, 8.0 ), luma(col) ), 0.2 ), 1.0 );
 }

@@ -105,9 +105,12 @@ if ( in_browser() ) {
     if ( _click ) mouse_lock = true;
     if ( _space ) mouse_lock = false;
     if ( mouse_lock ) {
+        window_set_cursor( cr_none );
         mouse_dx = window_mouse_get_x() - window_get_width()*0.5;
         mouse_dy = window_mouse_get_y() - window_get_height()*0.5;
         window_mouse_set( window_get_width()*0.5, window_get_height()*0.5 );
+    } else {
+        window_set_cursor( cr_default );
     }
 }
 if ( !mouse_lock ) {
@@ -135,7 +138,7 @@ if ( _vperp != 0 ) {
     y += lengthdir_y( _vperp, look_xy_angle-90 );
 }
 
-look_xy_angle -= mouse_dx/10;
+look_xy_angle -= mouse_dx/8;
 look_pz_angle = clamp( look_pz_angle - mouse_dy/5, -90, 90 );
 
 var _xy_cos = dcos( look_xy_angle );

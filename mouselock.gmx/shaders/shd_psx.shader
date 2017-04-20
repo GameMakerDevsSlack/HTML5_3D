@@ -5,13 +5,11 @@ attribute vec3 in_Normal;
 
 varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
-varying vec3 v_vNormal;
-varying vec3 affine;
+varying vec3 v_vAffine;
 
 uniform vec4 u_vAmbientColour;
 
-vec4 DoLight(vec3 ws_pos, vec3 ws_normal, vec4 posrange, vec4 diffusecol)
-{
+vec4 DoLight(vec3 ws_pos, vec3 ws_normal, vec4 posrange, vec4 diffusecol) {
     vec3 diffvec = ws_pos - posrange.xyz;
     float veclen = length(diffvec);
     diffvec /= veclen;
@@ -21,8 +19,7 @@ vec4 DoLight(vec3 ws_pos, vec3 ws_normal, vec4 posrange, vec4 diffusecol)
     return dotresult * atten * diffusecol;
 }
 
-vec4 DoLighting2(vec4 vertexcolour, vec4 objectspacepos)
-{
+vec4 DoLighting2(vec4 vertexcolour, vec4 objectspacepos) {
     vec3 ws_pos = (gm_Matrices[MATRIX_WORLD] * objectspacepos).xyz;
     
     vec4 accumcol = vec4(0.0, 0.0, 0.0, 1.0);
@@ -31,7 +28,6 @@ vec4 DoLighting2(vec4 vertexcolour, vec4 objectspacepos)
         accumcol += DoLight(ws_pos, -normalize(in_Normal), gm_Lights_PosRange[i], gm_Lights_Colour[i]);
     }
     
-    //accumcol.rgb *= .3;
     accumcol *= vertexcolour;
     accumcol += u_vAmbientColour;
     accumcol = min(vec4(1.0), accumcol);
@@ -48,22 +44,19 @@ void main() {
     gl_Position.y = (floor(gl_Position.y * 60.0) / 60.0);
     gl_Position.xyz *= gl_Position.w;
     //*/
-    affine = vec3(in_TextureCoord.x * gl_Position.z, in_TextureCoord.y * gl_Position.z, gl_Position.z);
+    v_vAffine = vec3(in_TextureCoord.x * gl_Position.z, in_TextureCoord.y * gl_Position.z, gl_Position.z);
     v_vColour = DoLighting2(in_Colour, object_space_pos) + CalcFogFactor(object_space_pos);
     v_vTexcoord = in_TextureCoord;
-    v_vNormal = in_Normal;
     
 }
 //######################_==_YOYO_SHADER_MARKER_==_######################@~varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
-varying vec3 v_vNormal;
-varying vec3 affine;
+varying vec3 v_vAffine;
 
 void main() {
     //*
     gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
     /*/
-    vec2 uv = affine.xy / affine.z;
-    gl_FragColor = v_vColour * texture2D( gm_BaseTexture, uv );
-    */
+    gl_FragColor = v_vColour * texture2D( gm_BaseTexture, affine.xy / affine.z );
+    //*/
 }
