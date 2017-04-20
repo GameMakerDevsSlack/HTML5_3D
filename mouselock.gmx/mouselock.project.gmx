@@ -29,6 +29,7 @@
       <script>scripts\websnd_stop.gml</script>
     </scripts>
     <script>scripts\dither_make_sprite.gml</script>
+    <script>scripts\d3d_model_load_ext.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_pass_through.shader</shader>
