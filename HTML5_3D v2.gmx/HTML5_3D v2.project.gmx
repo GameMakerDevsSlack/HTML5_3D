@@ -3,7 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="2" name="datafiles">
+  <datafiles number="3" name="datafiles">
     <datafile>
       <name>simple.obj</name>
       <exists>-1</exists>
@@ -38,10 +38,27 @@
       </ConfigOptions>
       <filename>thing.obj</filename>
     </datafile>
+    <datafile>
+      <name>t.wav</name>
+      <exists>-1</exists>
+      <size>2894896</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>t.wav</filename>
+    </datafile>
   </datafiles>
   <NewExtensions>
-    <extension index="1">extensions\GMWA</extension>
-    <extension index="2">extensions\PointerLock</extension>
+    <extension index="0">extensions\GMWA</extension>
+    <extension index="1">extensions\PointerLock</extension>
   </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
@@ -74,6 +91,7 @@
     <script>scripts\__d3d_model_load_ext.gml</script>
     <script>scripts\model_load_ext_paul.gml</script>
     <script>scripts\model_load_ext_zoltan.gml</script>
+    <script>scripts\gmcallback_sound_loaded.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_pass_through.shader</shader>

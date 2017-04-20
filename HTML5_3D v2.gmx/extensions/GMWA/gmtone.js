@@ -22,7 +22,7 @@
     var sound = new Pizzicato.Sound({ 
       source: 'file',
       options: {
-        path: './html5game/' + path,
+        path: './HTML5_3D/' + path,
         loop: loop,
         volume: volume,
         attack: attack,

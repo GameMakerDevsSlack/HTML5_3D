@@ -34,7 +34,7 @@ websnd_sine_440_pan    = VERY_SMALL;
 websnd_sine_440_reverb = VERY_SMALL;
 
 if ( in_browser() ) {
-    websnd_sine_440        = wa_create_sound_ext( wa_sine, 440, 0.2, 1, 0.01 );
+    websnd_sine_440        = wa_create_sound_file_ext( "t.wav", true, 0.2, 0.2, 0.2, script_get_name(gmcallback_sound_loaded) );
     websnd_sine_440_reverb = wa_create_effect_reverb( 2, 0.5, 0.5, 0.5 );
     websnd_sine_440_pan    = wa_create_effect_stereopanner( 0 );
     wa_attach_effect( websnd_sine_440, websnd_sine_440_pan );
@@ -42,8 +42,35 @@ if ( in_browser() ) {
 }
 
 global.websnd_prop_sine_440 = websnd_define_properties( websnd_sine_440, websnd_sine_440_pan, websnd_sine_440_reverb,
-                                                        1.0, 50, 2000, 0.7,
+                                                        0.5, 50, 2000, 0.7,
                                                         0.0, 0.0, 0, 1500, 0.3 );
+
+global.isLoaded = false;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (global.isLoaded) {
+    room_goto_next();
+}
 </string>
           </argument>
         </arguments>

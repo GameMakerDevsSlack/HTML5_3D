@@ -96,9 +96,10 @@ test_light_x = 120 + lengthdir_x( 100, current_time/10 );
 test_light_y = 100 + lengthdir_y( 120, current_time/10 );
 test_light_z = 50;
 
+/*
 if ( ( current_time mod 1500 ) &lt; 100 ) {
     if( !test_sound_playing ) {
-        //websnd_play( global.websnd_prop_sine_440 );
+        websnd_play( global.websnd_prop_sine_440 );
         test_sound_playing = true;
     }
 } else {
@@ -106,6 +107,12 @@ if ( ( current_time mod 1500 ) &lt; 100 ) {
         websnd_stop( global.websnd_prop_sine_440 );
         test_sound_playing = false;
     }
+}
+*/
+
+if( !test_sound_playing ) &amp;&amp; (global.isLoaded) {
+    websnd_play( global.websnd_prop_sine_440 );
+    test_sound_playing = true;
 }
 
 websnd_update( global.websnd_prop_sine_440,

@@ -1,0 +1,1 @@
+global.isLoaded = true;
