@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>///Create
 
+persistent = true;
+
 websnd_sine_440        = VERY_SMALL;
 websnd_sine_440_pan    = VERY_SMALL;
 websnd_sine_440_reverb = VERY_SMALL;

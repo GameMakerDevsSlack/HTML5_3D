@@ -39,17 +39,22 @@
     <font>fonts\fnt_default</font>
   </fonts>
   <objects name="objects">
-    <object>objects\obj_init</object>
-    <object>objects\obj_websnd</object>
+    <objects name="controllers">
+      <object>objects\obj_init</object>
+      <object>objects\obj_websnd</object>
+      <object>objects\obj_debug</object>
+      <object>objects\obj_screen</object>
+    </objects>
     <object>objects\obj_example</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
     <room>rooms\rm_main</room>
   </rooms>
-  <constants number="2">
+  <constants number="3">
     <constant name="VERY_LARGE">9999999</constant>
     <constant name="VERY_SMALL">-9999999</constant>
+    <constant name="DEBUG">true</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

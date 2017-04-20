@@ -13,6 +13,8 @@ var _x2         = argument7;
 var _y2         = argument8;
 var _z2         = argument9;
 
+if ( !_properties[@e_websnd.playing] ) exit;
+
 var _distance = point_distance_3d( _x1, _y1, _z1, _x2, _y2, _z2 );
 
 var _volume = lerp( 0, _properties[e_websnd.max_volume], websnd_falloff_curve( _distance,

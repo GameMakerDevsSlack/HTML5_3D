@@ -4,7 +4,7 @@ enum e_websnd { sound, pan_effect, reverb_effect,
                 max_volume, min_vol_dist, max_vol_dist, vol_bias,
                 min_reverb, max_reverb, min_reverb_dist, max_reverb_dist, reverb_bias,
                 calc_distance, calc_volume, calc_reverb,
-                pan }
+                pan, playing }
 
 var _result;
 _result[e_websnd.sound          ] =  argument0; //sound (as defined by wa_create_sound)
@@ -23,4 +23,5 @@ _result[e_websnd.calc_distance  ] = VERY_LARGE;
 _result[e_websnd.calc_volume    ] = 0;
 _result[e_websnd.calc_reverb    ] = 0;
 _result[e_websnd.pan            ] = 0;
+_result[e_websnd.playing        ] = false;
 return _result;

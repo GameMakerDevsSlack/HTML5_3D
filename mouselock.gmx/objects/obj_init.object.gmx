@@ -30,7 +30,9 @@
 surface_resize( application_surface, 320, 240 );
 application_surface_draw_enable( false );
 
+instance_create( 0, 0, obj_screen );
 instance_create( 0, 0, obj_websnd );
+instance_create( 0, 0, obj_debug );
 
 room_goto_next();
 </string>
