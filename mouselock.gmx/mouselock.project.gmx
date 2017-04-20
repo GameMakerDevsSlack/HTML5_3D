@@ -15,10 +15,20 @@
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\cross_product.gml</script>
-    <script>scripts\cross_product_normalised.gml</script>
+    <scripts name="utility">
+      <script>scripts\in_browser.gml</script>
+      <script>scripts\cross_product.gml</script>
+      <script>scripts\cross_product_normalised.gml</script>
+      <script>scripts\fixed_dot_product_3d_normalised.gml</script>
+    </scripts>
+    <scripts name="sound">
+      <script>scripts\websnd_define_properties.gml</script>
+      <script>scripts\websnd_falloff_curve.gml</script>
+      <script>scripts\websnd_update.gml</script>
+      <script>scripts\websnd_play.gml</script>
+      <script>scripts\websnd_stop.gml</script>
+    </scripts>
     <script>scripts\dither_make_sprite.gml</script>
-    <script>scripts\sound_falloff_curve.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_pass_through.shader</shader>
@@ -30,13 +40,17 @@
   </fonts>
   <objects name="objects">
     <object>objects\obj_init</object>
-    <object>objects\obj_sound</object>
+    <object>objects\obj_websnd</object>
     <object>objects\obj_example</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
     <room>rooms\rm_main</room>
   </rooms>
+  <constants number="2">
+    <constant name="VERY_LARGE">9999999</constant>
+    <constant name="VERY_SMALL">-9999999</constant>
+  </constants>
   <help>
     <rtf>help.rtf</rtf>
   </help>
