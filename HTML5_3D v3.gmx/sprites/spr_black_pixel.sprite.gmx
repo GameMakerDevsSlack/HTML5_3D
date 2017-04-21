@@ -20,6 +20,6 @@
   <width>1</width>
   <height>1</height>
   <frames>
-    <frame index="0">images\spr_white_pixel_0.png</frame>
+    <frame index="0">images\spr_black_pixel_0.png</frame>
   </frames>
 </sprite>

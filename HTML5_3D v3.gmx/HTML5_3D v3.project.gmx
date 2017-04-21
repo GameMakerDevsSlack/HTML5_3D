@@ -82,6 +82,7 @@
     <sprite>sprites\spr_floor</sprite>
     <sprite>sprites\spr_gradient</sprite>
     <sprite>sprites\spr_white_pixel</sprite>
+    <sprite>sprites\spr_black_pixel</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>

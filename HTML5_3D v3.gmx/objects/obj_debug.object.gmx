@@ -65,7 +65,7 @@ for( var _x = 0; _x &lt; 320; _x += 64 ) {
 
 vertex_end( vbf_test );
 
-//model_test = model_load_ext_zoltan( "cube.obj", false );
+vbf_cube = model_load_ext_zoltan( "thing.obj", false );
 </string>
           </argument>
         </arguments>
@@ -209,9 +209,9 @@ render_queue_set_shader();
 vertex_submit( vbf_test, pr_trianglelist, render_queue_get_texture( spr_floor, 0 ) );
 render_queue_copy_z();
 
-//render_queue_set_shader();
-//d3d_model_draw( model_test, 0, 0, 0, render_queue_get_texture( spr_white_pixel, 0 ) );
-//render_queue_copy_z();
+render_queue_set_shader();
+vertex_submit( vbf_cube, pr_trianglelist, render_queue_get_texture( spr_white_pixel, 0 ) );
+render_queue_copy_z();
 </string>
           </argument>
         </arguments>

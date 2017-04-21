@@ -22,11 +22,11 @@ for (i=0;file_text_eof(fp)==false;i+=1) {
     
     if (string_char_at(row,1)=="v" && string_char_at(row,2)==" ") {
         row=string_delete(row,1,string_pos(" ",row));
-        vx=real(string_copy(row,1,string_pos(" ",row))) * 100;
+        vx=real(string_copy(row,1,string_pos(" ",row))) * 10;
         row=string_delete(row,1,string_pos(" ",row));
-        vy=real(string_copy(row,1,string_pos(" ",row))) * 100;
+        vy=real(string_copy(row,1,string_pos(" ",row))) * 10;
         row=string_delete(row,1,string_pos(" ",row));
-        vz=real(string_copy(row,1,string_length(row))) * 100;
+        vz=real(string_copy(row,1,string_length(row))) * 10;
         ds_list_add(vertex_list1,vx);
         ds_list_add(vertex_list2,vy);
         ds_list_add(vertex_list3,vz);
@@ -98,9 +98,11 @@ for (i=0;file_text_eof(fp)==false;i+=1) {
 }
 file_text_close(fp);
 
-tm=d3d_model_create();
-tsn=0;
-d3d_model_primitive_begin(tm,pr_trianglelist);       
+//tm=d3d_model_create();
+//tsn=0;
+//d3d_model_primitive_begin(tm,pr_trianglelist);       
+var _vbuff = vertex_create_buffer();
+vertex_begin( _vbuff, global.vft_simple );
 
 for (fc=0;fc<ds_list_size(faces_list);fc+=1) {
 
@@ -157,17 +159,23 @@ for (fc=0;fc<ds_list_size(faces_list);fc+=1) {
         ty=0;
     }
     
-    d3d_model_vertex_normal_texture_colour(tm,vx,vy,vz,nx,ny,nz,tx,ty,c_white,1);
-    
+    vertex_position_3d( _vbuff,   vx, vy, vz );
+    vertex_texcoord(    _vbuff,   tx, ty );
+    vertex_colour(      _vbuff,   c_white, 1 );
+    vertex_normal(      _vbuff,   nx, ny, nz );
+    //d3d_model_vertex_normal_texture_colour(tm,vx,vy,vz,nx,ny,nz,tx,ty,c_white,1);
+    /*
     tsn+=1;
     if (tsn==999) {
         tsn=0;
         d3d_model_primitive_end(tm);
         d3d_model_primitive_begin(tm,pr_trianglelist);
-    }       
+    }
+    */      
 }
 
-d3d_model_primitive_end(tm);
-return tm;
+//d3d_model_primitive_end(tm);
+vertex_end( _vbuff );
+return _vbuff;
 
 

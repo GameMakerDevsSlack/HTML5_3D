@@ -200,7 +200,7 @@ if ( in_browser() ) {
     shader_set_uniform_f( shader_get_uniform( shd_psx, "u_vAmbientColour" ), 0.1, 0.1, 0.13, 0.0 );
 }
 
-d3d_set_culling( false );
+d3d_set_culling( true );
 
 draw_set_colour( c_white );
 with( obj_example ) d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   0, 0, 1,   60, view_wview[0]/view_hview[0], 1, 1000 );
