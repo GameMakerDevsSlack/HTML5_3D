@@ -92,11 +92,19 @@
     <script>scripts\model_load_ext_paul.gml</script>
     <script>scripts\model_load_ext_zoltan.gml</script>
     <script>scripts\gmcallback_sound_loaded.gml</script>
+    <script>scripts\render_queue_add_self.gml</script>
+    <script>scripts\render_queue_get_texture.gml</script>
+    <script>scripts\render_queue_set_shader.gml</script>
+    <script>scripts\render_queue_copy_z.gml</script>
   </scripts>
   <shaders name="shaders">
-    <shader type="GLSLES">shaders\shd_pass_through.shader</shader>
+    <shader type="GLSLES">shaders\shd_z_zwrite.shader</shader>
+    <shader type="GLSLES">shaders\shd_z_copy_flipped.shader</shader>
+    <shader type="GLSLES">shaders\shd_z_copy.shader</shader>
+    <shader type="GLSLES">shaders\shd_z_diffuse.shader</shader>
     <shader type="GLSLES">shaders\shd_psx.shader</shader>
     <shader type="GLSLES">shaders\shd_dither.shader</shader>
+    <shader type="GLSLES">shaders\shd_pass_through.shader</shader>
   </shaders>
   <fonts name="fonts">
     <font>fonts\fnt_default</font>

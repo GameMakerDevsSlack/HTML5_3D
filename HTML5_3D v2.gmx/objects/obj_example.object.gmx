@@ -139,7 +139,7 @@ if ( _vperp != 0 ) {
 }
 
 look_xy_angle -= mouse_dx/8;
-look_pz_angle = clamp( look_pz_angle - mouse_dy/5, -90, 90 );
+look_pz_angle = clamp( look_pz_angle - mouse_dy/5, -89, 89 );
 
 var _xy_cos = dcos( look_xy_angle );
 var _xy_sin = dsin( look_xy_angle );

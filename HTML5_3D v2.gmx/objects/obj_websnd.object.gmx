@@ -68,7 +68,9 @@ global.isLoaded = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.isLoaded) {
+            <string>///Step
+
+if ( !in_browser() and ( room == rm_init ) ) or ( global.isLoaded ) {
     room_goto_next();
 }
 </string>
