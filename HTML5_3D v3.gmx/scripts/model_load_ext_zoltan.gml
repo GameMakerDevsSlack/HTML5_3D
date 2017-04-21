@@ -2,6 +2,14 @@
 // (c) 2006. Zoltan Percsich. All Rights Reserved.
 // Don't edit this script
 
+var _offset_x = argument2;
+var _offset_y = argument3;
+var _offset_z = argument4;
+var _scale    = argument5;
+_offset_x *= _scale;
+_offset_y *= _scale;
+_offset_z *= _scale;
+
 filename=argument0;
 flipnormals = 1;
 if (argument1>0) flipnormals=-1;
@@ -22,11 +30,11 @@ for (i=0;file_text_eof(fp)==false;i+=1) {
     
     if (string_char_at(row,1)=="v" && string_char_at(row,2)==" ") {
         row=string_delete(row,1,string_pos(" ",row));
-        vx=real(string_copy(row,1,string_pos(" ",row))) * 10;
+        vx=real(string_copy(row,1,string_pos(" ",row)))*_scale + _offset_x;
         row=string_delete(row,1,string_pos(" ",row));
-        vy=real(string_copy(row,1,string_pos(" ",row))) * 10;
+        vy=real(string_copy(row,1,string_pos(" ",row)))*_scale + _offset_y;
         row=string_delete(row,1,string_pos(" ",row));
-        vz=real(string_copy(row,1,string_length(row))) * 10;
+        vz=real(string_copy(row,1,string_length(row)))*_scale + _offset_z;
         ds_list_add(vertex_list1,vx);
         ds_list_add(vertex_list2,vy);
         ds_list_add(vertex_list3,vz);

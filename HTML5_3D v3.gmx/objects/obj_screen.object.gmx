@@ -29,17 +29,10 @@
 
 persistent = true;
 
-smoothed_timer = 100;
+smoothed_timer = 5000;
 frame_start_time = get_timer();
 do_lighting = true;
 do_dither = true;
-
-vertex_format_begin();
-vertex_format_add_position_3d();
-vertex_format_add_textcoord();
-vertex_format_add_colour();
-vertex_format_add_normal();
-global.vft_simple = vertex_format_end();
 
 global.dither_sprite = dither_make_sprite();
 global.dither_texture = sprite_get_texture( global.dither_sprite, 0 );
@@ -171,17 +164,18 @@ if ( keyboard_check( vk_shift ) ) draw_surface_ext( global.render_zsurf, 0, 0, 1
 
 frame_start_time = get_timer();
 
-var _colour = make_colour_hsv( ( current_time / 10 ) mod 256, 255, 255 );
-with( obj_debug ) d3d_light_define_point( 0,  test_light_x, test_light_y, test_light_z,   200,   c_white );
-d3d_light_define_point( 1,    0,   0, 50,   100,  _colour  );
-d3d_light_define_point( 2,  320,   0, 50,   100,  _colour  );
-d3d_light_define_point( 3,  320, 320, 50,   100,  _colour  );
-d3d_light_define_point( 4,    0, 320, 50,   100,  _colour  );
-d3d_light_enable( 0, true );
-d3d_light_enable( 1, true );
-d3d_light_enable( 2, true );
-d3d_light_enable( 3, true );
-d3d_light_enable( 4, true );
+var _light = 0;
+with( obj_camera ) {
+    d3d_light_define_point( _light, x, y, z, 100, c_dkgray );
+    d3d_light_enable( _light, true );
+    _light++;
+}
+with( obj_light ) {
+    if ( !visible ) continue;
+    d3d_light_define_point( _light, x, y, z, range, colour );
+    d3d_light_enable( _light, true );
+    _light++;
+}
 
 if ( in_browser() ) {
     global.render_queue_size = 0;
@@ -201,9 +195,66 @@ if ( in_browser() ) {
 }
 
 d3d_set_culling( true );
-
 draw_set_colour( c_white );
-with( obj_example ) d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   0, 0, 1,   60, view_wview[0]/view_hview[0], 1, 1000 );
+camera_set_projection();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw
+
+render_queue_add_self();
+
+var _list = ds_list_create();
+with( obj_block ) {
+    var _dist = point_distance( x, y, obj_camera.x, obj_camera.y );
+    ds_list_add( _list, ( floor( _dist ) &lt;&lt; 17 ) + id );
+}
+ds_list_sort( _list, false );
+
+render_queue_set_shader();
+var _size = ds_list_size( _list );
+for( var _i = 0; _i &lt; _size; _i++ ) {
+    var _value = _list[| _i ];
+    var _inst = _value - ( ( _value &gt;&gt; 17 ) &lt;&lt; 17 );
+    with( _inst ) {
+        d3d_transform_set_scaling( sprite_width, sprite_height, 100 );
+        d3d_transform_add_translation( x, y, z );
+        vertex_submit( global.vbf_cube, pr_trianglelist, render_queue_get_texture( spr_floor, 0 ) );
+    }
+}
+d3d_transform_set_identity();
+render_queue_copy_z();
+
+ds_list_destroy( _list );
+
+/*
+render_queue_add_self();
+render_queue_set_shader();
+d3d_transform_set_scaling( 32, 32, 100 );
+d3d_transform_add_translation( x, y, z );
+vertex_submit( global.vbf_cube, pr_trianglelist, render_queue_get_texture( spr_floor, 0 ) );
+d3d_transform_set_identity();
+render_queue_copy_z();
+*/
 </string>
           </argument>
         </arguments>

@@ -83,6 +83,9 @@
     <sprite>sprites\spr_gradient</sprite>
     <sprite>sprites\spr_white_pixel</sprite>
     <sprite>sprites\spr_black_pixel</sprite>
+    <sprite>sprites\spr_block</sprite>
+    <sprite>sprites\spr_light</sprite>
+    <sprite>sprites\spr_player_mask</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -107,8 +110,6 @@
       <script>scripts\gamepad_button_check_any.gml</script>
       <script>scripts\gamepad_button_check_pressed_any.gml</script>
     </scripts>
-    <script>scripts\__d3d_model_load_ext.gml</script>
-    <script>scripts\model_load_ext_paul.gml</script>
     <script>scripts\model_load_ext_zoltan.gml</script>
     <script>scripts\gmcallback_sound_loaded.gml</script>
     <scripts name="render queue">
@@ -117,6 +118,8 @@
       <script>scripts\render_queue_set_shader.gml</script>
       <script>scripts\render_queue_copy_z.gml</script>
     </scripts>
+    <script>scripts\camera_set_projection.gml</script>
+    <script>scripts\vertex_buffer_definitions.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_z_zwrite.shader</shader>
@@ -138,7 +141,10 @@
       <object>objects\obj_debug</object>
       <object>objects\obj_screen</object>
     </objects>
-    <object>objects\obj_example</object>
+    <object>objects\obj_camera</object>
+    <object>objects\obj_player</object>
+    <object>objects\obj_block</object>
+    <object>objects\obj_light</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>

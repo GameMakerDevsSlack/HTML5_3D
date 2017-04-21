@@ -7,7 +7,6 @@ if ( global.render_pass == e_render.zwrite ) {
     draw_surface( application_surface, 0, 0 );
     shader_reset();
     surface_reset_target();
-    
-    with( obj_example ) d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   0, 0, 1,   60, view_wview[0]/view_hview[0], 1, 8000 );
+    camera_set_projection();
     
 }

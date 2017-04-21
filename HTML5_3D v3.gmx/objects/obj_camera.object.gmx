@@ -46,7 +46,7 @@ look_pz_angle = 0;//p = plane
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="1">
+    <event eventtype="3" enumb="2">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -63,32 +63,7 @@ look_pz_angle = 0;//p = plane
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Begin Step
-
-mouse_lock_update();
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Step
+            <string>///End Step
 
 if ( keyboard_check( vk_escape ) ) game_end();
 
@@ -118,26 +93,6 @@ if ( !mouse_locked ) {
     mouse_dy = 0;
 }
 
-if ( keyboard_check( ord( "Q" ) ) ) z += 2;
-if ( keyboard_check( ord( "E" ) ) ) z -= 2;
-
-var _vpara = 0;
-var _vperp = 0;
-if ( keyboard_check( ord( "A" ) ) ) _vperp = -2;
-if ( keyboard_check( ord( "D" ) ) ) _vperp =  2;
-if ( keyboard_check( ord( "W" ) ) ) _vpara =  2;
-if ( keyboard_check( ord( "S" ) ) ) _vpara = -2;
-
-if ( _vpara != 0 ) {
-    x += lengthdir_x( _vpara, look_xy_angle );
-    y += lengthdir_y( _vpara, look_xy_angle );
-}
-
-if ( _vperp != 0 ) {
-    x += lengthdir_x( _vperp, look_xy_angle-90 );
-    y += lengthdir_y( _vperp, look_xy_angle-90 );
-}
-
 look_xy_angle -= mouse_dx/8;
 look_pz_angle = clamp( look_pz_angle - mouse_dy/5, -89, 89 );
 
@@ -149,6 +104,31 @@ var _pz_sin = dsin( look_pz_angle );
 look_x = x + _xy_cos*_pz_cos;
 look_y = y - _xy_sin*_pz_cos;
 look_z = z + _pz_sin;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Begin Step
+
+mouse_lock_update();
 </string>
           </argument>
         </arguments>
