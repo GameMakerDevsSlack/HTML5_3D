@@ -28,7 +28,7 @@ var _reverb = lerp( _properties[e_websnd.max_reverb], _properties[e_websnd.min_r
                                                                                                               _properties[e_websnd.reverb_bias] ) );
 
 var _pan = fixed_dot_product_3d_normalised( _y1 - _ly, _lx - _x1,         0,
-                                            _x2 - _x1, _y2 - _y1, _z2 - _z1 );
+                                            _x2 - _x1, _y2 - _y1, _z2 - _z1 ) * _properties[e_websnd.pan_amount];
 
 _properties[@e_websnd.calc_distance] = _distance;
 _properties[@e_websnd.calc_volume  ] = _volume;

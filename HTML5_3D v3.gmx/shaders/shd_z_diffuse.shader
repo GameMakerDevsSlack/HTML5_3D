@@ -15,7 +15,7 @@ void main() {
     
     v_vTexcoord = in_TextureCoord;
     v_vPosition = gl_Position;
-    v_fDepth = (gm_Matrices[MATRIX_WORLD_VIEW] * object_space_pos).z / 1000.0;
+    v_fDepth = (gm_Matrices[MATRIX_WORLD_VIEW] * object_space_pos).z / 768.0;
     
 }
 //######################_==_YOYO_SHADER_MARKER_==_######################@~varying vec2 v_vTexcoord;

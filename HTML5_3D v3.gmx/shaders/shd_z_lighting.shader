@@ -43,8 +43,9 @@ void main() {
     
     v_vTexcoord = in_TextureCoord;
     v_vPosition = gl_Position;
-    v_fDepth = (gm_Matrices[MATRIX_WORLD_VIEW] * object_space_pos).z / 1000.0;
-    v_vColour = DoLighting2(in_Colour, object_space_pos) + CalcFogFactor(object_space_pos);
+    v_fDepth = (gm_Matrices[MATRIX_WORLD_VIEW] * object_space_pos).z / 768.0;
+    v_vColour = DoLighting2(in_Colour, object_space_pos);
+    v_vColour.a = 1.0 - clamp( ( v_fDepth - 0.01 ) / 0.99, 0.0, 1.0 );
     
 }
 //######################_==_YOYO_SHADER_MARKER_==_######################@~varying vec2 v_vTexcoord;

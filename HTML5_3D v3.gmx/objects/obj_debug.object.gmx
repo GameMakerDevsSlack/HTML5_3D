@@ -34,11 +34,6 @@ if ( !DEBUG ) {
 
 persistent = true;
 debug_visible = false;
-
-test_light_x = 0;
-test_light_y = 0;
-test_light_z = 0;
-test_sound_playing = false;
 </string>
           </argument>
         </arguments>
@@ -64,38 +59,6 @@ test_sound_playing = false;
             <string>///Step
 
 if ( keyboard_check_pressed( ord( "1" ) ) ) debug_visible = !debug_visible;
-
-test_light_x = 120 + lengthdir_x( 100, current_time/10 );
-test_light_y = 100 + lengthdir_y( 120, current_time/10 );
-test_light_z = 50;
-
-/*
-if ( ( current_time mod 1500 ) &lt; 100 ) {
-    if( !test_sound_playing ) {
-        websnd_play( global.websnd_prop_sine_440 );
-        test_sound_playing = true;
-    }
-} else {
-    if ( test_sound_playing ) {
-        websnd_stop( global.websnd_prop_sine_440 );
-        test_sound_playing = false;
-    }
-}
-*/
-
-if ( instance_exists( obj_camera ) ) {
-    
-    if( !test_sound_playing ) &amp;&amp; (global.isLoaded) {
-        //websnd_play( global.websnd_prop_sine_440 );
-        test_sound_playing = true;
-    }
-    
-    websnd_update( global.websnd_prop_sine_440,
-                   obj_camera.x     , obj_camera.y     , obj_camera.z     ,
-                   obj_camera.look_x, obj_camera.look_y, obj_camera.look_z,
-                   test_light_x      , test_light_y      , test_light_z );
-    
-}
 </string>
           </argument>
         </arguments>

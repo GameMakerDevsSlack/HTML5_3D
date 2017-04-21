@@ -51,7 +51,6 @@ z = 0;
           <argument>
             <kind>1</kind>
             <string>///Draw
-
 /*
 render_queue_add_self();
 render_queue_set_shader();

@@ -135,6 +135,7 @@ if ( in_browser() ) {
 }
 
 
+d3d_set_fog( false, background_colour, 760,  770 );
 d3d_set_projection_ortho( 0, 0, view_wview[0], view_hview[0], 0 );
 d3d_set_culling( false );
 if ( keyboard_check( vk_shift ) ) draw_surface_ext( global.render_zsurf, 0, 0, 1, 1, 0, c_blue, 1  );
@@ -163,6 +164,8 @@ if ( keyboard_check( vk_shift ) ) draw_surface_ext( global.render_zsurf, 0, 0, 1
             <string>///Draw Begin
 
 frame_start_time = get_timer();
+
+d3d_set_fog( true, background_colour, 700,  770 );
 
 var _light = 0;
 with( obj_camera ) {
@@ -245,16 +248,6 @@ d3d_transform_set_identity();
 render_queue_copy_z();
 
 ds_list_destroy( _list );
-
-/*
-render_queue_add_self();
-render_queue_set_shader();
-d3d_transform_set_scaling( 32, 32, 100 );
-d3d_transform_add_translation( x, y, z );
-vertex_submit( global.vbf_cube, pr_trianglelist, render_queue_get_texture( spr_floor, 0 ) );
-d3d_transform_set_identity();
-render_queue_copy_z();
-*/
 </string>
           </argument>
         </arguments>

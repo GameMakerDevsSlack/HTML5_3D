@@ -86,6 +86,7 @@
     <sprite>sprites\spr_block</sprite>
     <sprite>sprites\spr_light</sprite>
     <sprite>sprites\spr_player_mask</sprite>
+    <sprite>sprites\spr_sound</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -145,6 +146,7 @@
     <object>objects\obj_player</object>
     <object>objects\obj_block</object>
     <object>objects\obj_light</object>
+    <object>objects\obj_sound</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
