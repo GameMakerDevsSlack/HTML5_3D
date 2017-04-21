@@ -133,15 +133,16 @@ d3d_light_enable( 4, true );
 
 shader_set( shd_psx );
 shader_set_uniform_f( shader_get_uniform( shd_psx, "u_vAmbientColour" ), 0.1, 0.1, 0.13, 0.0 );
-
+*/
 
 global.render_pass = e_render.diffuse;
-shader_set( shd_z_zdiffuse );
+shader_set( shd_z_diffuse );
+texture_set_stage( shader_get_sampler_index( shd_z_diffuse, "u_sDepth" ), global.render_zsurf_texture );
 
 for( var _i = 0; _i &lt; global.render_queue_size; _i++ ) {
     var _inst = global.render_queue[_i];
     with( _inst ) event_perform( ev_draw, 0 );
-}*/
+}
 
 shader_reset();
 d3d_set_projection_ortho( 0, 0, view_wview[0], view_hview[0], 0 );

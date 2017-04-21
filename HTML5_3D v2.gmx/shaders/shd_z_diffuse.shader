@@ -22,6 +22,8 @@ void main() {
 varying vec4 v_vPosition;
 varying float v_fDepth;
 
+uniform sampler2D u_sDepth;
+
 float unpackDepth( vec3 colourRGB ){
     return clamp(float((colourRGB.r)+(colourRGB.g/255.0)+(colourRGB.b/(255.0*255.0))), 0.0, 1.0);
 }
@@ -33,8 +35,8 @@ vec3 packDepth(float f) {
 void main() {
     
     vec2 texcoord = 0.5 + ( 0.5*v_vPosition.xy/v_vPosition.w );
-    float sampleDepth = unpackDepth( texture2D( gm_BaseTexture, texcoord ).rgb );
-    //if ( sampleDepth < v_fDepth ) discard;
-    gl_FragColor = vec4( packDepth( v_fDepth ), step( v_fDepth, sampleDepth ) );
+    float sampleDepth = unpackDepth( texture2D( u_sDepth, texcoord ).rgb ) + 0.002;
+    if ( sampleDepth < v_fDepth ) discard;
+    gl_FragColor = texture2D( gm_BaseTexture, v_vTexcoord );
     
 }

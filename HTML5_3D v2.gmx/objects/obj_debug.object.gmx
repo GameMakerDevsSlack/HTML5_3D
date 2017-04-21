@@ -199,9 +199,7 @@ draw_set_halign( fa_left );
 
 render_queue_add_self();
 
-d3d_transform_set_translation( -160, 0, 0 );
-d3d_transform_add_rotation_y( ( current_time/20 ) mod 360 );
-d3d_transform_add_translation(  160, 0, 0 );
+d3d_transform_set_translation( 0, 0, 20 * dsin( current_time/10 ) );
 render_queue_set_shader();
 vertex_submit( vbf_test, pr_trianglelist, render_queue_get_texture( spr_floor, 0 ) );
 render_queue_copy_z();
