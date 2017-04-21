@@ -29,24 +29,37 @@
 
 persistent = true;
 
-websnd_sine_440        = VERY_SMALL;
-websnd_sine_440_pan    = VERY_SMALL;
-websnd_sine_440_reverb = VERY_SMALL;
+global.sound_prop_sine_440 = sound_define_properties( snd_test_left, snd_test_right, snd_test_reverb,
+                                                      0.5, 50, 1500, 0.7,
+                                                      0.0, 1.0, 0, 800, 0.3,
+                                                      1.0 );
 
-if ( in_browser() ) {
-    websnd_sine_440        = wa_create_sound_file_ext( "t.wav", true, 0.2, 0.2, 0.2, script_get_name(gmcallback_sound_loaded) );
-    websnd_sine_440_reverb = wa_create_effect_reverb( 1, 0.2, 0.0, 0.5 );
-    websnd_sine_440_pan    = wa_create_effect_stereopanner( 0 );
-    wa_attach_effect( websnd_sine_440, websnd_sine_440_pan );
-    wa_attach_effect( websnd_sine_440, websnd_sine_440_reverb );
-}
+lst_sound_instance = ds_list_create();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Destroy
 
-global.websnd_prop_sine_440 = websnd_define_properties( websnd_sine_440, websnd_sine_440_pan, websnd_sine_440_reverb,
-                                                        0.5, 50, 1500, 0.7,
-                                                        0.0, 1.0, 0, 800, 0.3,
-                                                        0.7 );
-
-global.isLoaded = false;
+ds_list_destroy( lst_sound_instance );
 </string>
           </argument>
         </arguments>
@@ -71,8 +84,17 @@ global.isLoaded = false;
             <kind>1</kind>
             <string>///Step
 
-if ( !in_browser() and ( room == rm_init ) ) or ( global.isLoaded ) {
-    room_goto_next();
+var _size = ds_list_size( lst_sound_instance );
+for( var _i = _size-1; _i &gt;= _size; _i-- ) {
+    
+    var _instance = lst_sound_instance[| _i ];
+    
+    if ( !audio_is_playing( _instance[ e_sound_instance.left_instance ] )
+    and !audio_is_playing( _instance[ e_sound_instance.right_instance ] )
+    and !audio_is_playing( _instance[ e_sound_instance.reverb_instance ] ) ) {
+        ds_list_delete( lst_sound_instance, _i );
+    }
+    
 }
 </string>
           </argument>

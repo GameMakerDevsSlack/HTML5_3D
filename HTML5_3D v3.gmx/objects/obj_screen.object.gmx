@@ -138,7 +138,6 @@ if ( in_browser() ) {
 d3d_set_fog( false, background_colour, 760,  770 );
 d3d_set_projection_ortho( 0, 0, view_wview[0], view_hview[0], 0 );
 d3d_set_culling( false );
-if ( keyboard_check( vk_shift ) ) draw_surface_ext( global.render_zsurf, 0, 0, 1, 1, 0, c_blue, 1  );
 </string>
           </argument>
         </arguments>
@@ -241,7 +240,7 @@ for( var _i = 0; _i &lt; _size; _i++ ) {
     with( _inst ) {
         d3d_transform_set_scaling( sprite_width, sprite_height, 100 );
         d3d_transform_add_translation( x, y, z );
-        vertex_submit( global.vbf_cube, pr_trianglelist, render_queue_get_texture( spr_floor, 0 ) );
+        vertex_submit( global.vbf_cube, pr_trianglelist, render_queue_get_texture( spr_white_pixel, 0 ) );
     }
 }
 d3d_transform_set_identity();

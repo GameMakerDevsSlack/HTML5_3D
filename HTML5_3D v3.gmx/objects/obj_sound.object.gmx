@@ -28,6 +28,39 @@
             <string>///Create
 
 z = 20;
+
+alarm[0] = 1 * room_speed;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Alarm 0
+
+sound_instance = sound_instance_play( global.sound_prop_sine_440, 1 );
+sound_instance_update( sound_instance,
+                       obj_camera.x     , obj_camera.y     , obj_camera.z     ,
+                       obj_camera.look_x, obj_camera.look_y, obj_camera.look_z,
+                       x                , y                , z );
+
+alarm[0] = 1 * room_speed;
 </string>
           </argument>
         </arguments>
@@ -52,16 +85,13 @@ z = 20;
             <kind>1</kind>
             <string>///Step
 
-if ( instance_exists( obj_camera ) ) {
+if ( instance_exists( obj_camera ) ) and ( keyboard_check_pressed( vk_shift ) ) {
     
-    if ( !global.websnd_prop_sine_440[ e_websnd.playing ] ) and (global.isLoaded) {
-        websnd_play( global.websnd_prop_sine_440 );
-    }
-    
-    websnd_update( global.websnd_prop_sine_440,
-                   obj_camera.x     , obj_camera.y     , obj_camera.z     ,
-                   obj_camera.look_x, obj_camera.look_y, obj_camera.look_z,
-                   x                , y                , z );
+    var _instance = sound_instance_play( global.sound_prop_sine_440, 1 );
+    sound_instance_update( _instance,
+                           obj_camera.x     , obj_camera.y     , obj_camera.z     ,
+                           obj_camera.look_x, obj_camera.look_y, obj_camera.look_z,
+                           x                , y                , z );
     
 }
 </string>

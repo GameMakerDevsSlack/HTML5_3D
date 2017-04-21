@@ -33,10 +33,10 @@ application_surface_draw_enable( false );
 vertex_buffer_definitions();
 
 instance_create( 0, 0, obj_screen );
-instance_create( 0, 0, obj_websnd );
+instance_create( 0, 0, obj_sound_manager );
 instance_create( 0, 0, obj_debug );
 
-//room_goto_next();
+room_goto_next();
 </string>
           </argument>
         </arguments>

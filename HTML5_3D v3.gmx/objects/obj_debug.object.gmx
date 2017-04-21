@@ -92,10 +92,10 @@ if ( debug_visible ) {
     
     _str += "#FPS=" + string_format( fps, 4, 0 ) + "  ";
     _str += "#SMOOTHED DRAW TIME=" + string_format( obj_screen.smoothed_timer, 4, 0 ) + "us";
-    _str += "#SOUND DISTANCE=" + string_format( global.websnd_prop_sine_440[e_websnd.calc_distance], 4, 0 );
-    _str += "#SOUND MIX=" + string_format( global.websnd_prop_sine_440[e_websnd.calc_reverb], 4, 2 );
-    _str += "#SOUND VOLUME=" + string_format( global.websnd_prop_sine_440[e_websnd.calc_volume], 4, 2 );
-    _str += "#SOUND PAN=" + string_format( global.websnd_prop_sine_440[e_websnd.pan], 4, 2 );
+    _str += "#SOUND DISTANCE=" + string_format( obj_sound.sound_instance[e_sound_instance.distance], 4, 0 );
+    _str += "#SOUND MIX=" + string_format( obj_sound.sound_instance[e_sound_instance.reverb], 4, 2 );
+    _str += "#SOUND VOLUME=" + string_format( obj_sound.sound_instance[e_sound_instance.volume], 4, 2 );
+    _str += "#SOUND PAN=" + string_format( obj_sound.sound_instance[e_sound_instance.pan], 4, 2 );
     if ( in_browser() ) _str += "#LOCKED: " + mouse_is_locked();
 
 } else {
