@@ -3,7 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="3" name="datafiles">
+  <datafiles number="4" name="datafiles">
     <datafile>
       <name>simple.obj</name>
       <exists>-1</exists>
@@ -55,6 +55,23 @@
       </ConfigOptions>
       <filename>t.wav</filename>
     </datafile>
+    <datafile>
+      <name>cube.obj</name>
+      <exists>-1</exists>
+      <size>742</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>cube.obj</filename>
+    </datafile>
   </datafiles>
   <NewExtensions>
     <extension index="0">extensions\GMWA</extension>
@@ -64,6 +81,7 @@
   <sprites name="sprites">
     <sprite>sprites\spr_floor</sprite>
     <sprite>sprites\spr_gradient</sprite>
+    <sprite>sprites\spr_white_pixel</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -92,10 +110,12 @@
     <script>scripts\model_load_ext_paul.gml</script>
     <script>scripts\model_load_ext_zoltan.gml</script>
     <script>scripts\gmcallback_sound_loaded.gml</script>
-    <script>scripts\render_queue_add_self.gml</script>
-    <script>scripts\render_queue_get_texture.gml</script>
-    <script>scripts\render_queue_set_shader.gml</script>
-    <script>scripts\render_queue_copy_z.gml</script>
+    <scripts name="render queue">
+      <script>scripts\render_queue_add_self.gml</script>
+      <script>scripts\render_queue_get_texture.gml</script>
+      <script>scripts\render_queue_set_shader.gml</script>
+      <script>scripts\render_queue_copy_z.gml</script>
+    </scripts>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_z_zwrite.shader</shader>

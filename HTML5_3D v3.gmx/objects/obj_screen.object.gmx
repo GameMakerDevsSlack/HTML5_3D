@@ -118,31 +118,30 @@ smoothed_timer = lerp( smoothed_timer, get_timer() - frame_start_time, 0.008 );
             <string>///Draw End
 
 shader_reset();
-draw_clear( background_colour );
 
-var _colour = make_colour_hsv( ( current_time / 10 ) mod 256, 255, 255 );
-with( obj_debug ) d3d_light_define_point( 0,  test_light_x, test_light_y, test_light_z,   200,   c_white );
-d3d_light_define_point( 1,    0,   0, 50,   100,  _colour  );
-d3d_light_define_point( 2,  320,   0, 50,   100,  _colour  );
-d3d_light_define_point( 3,  320, 320, 50,   100,  _colour  );
-d3d_light_define_point( 4,    0, 320, 50,   100,  _colour  );
-d3d_light_enable( 0, true );
-d3d_light_enable( 1, true );
-d3d_light_enable( 2, true );
-d3d_light_enable( 3, true );
-d3d_light_enable( 4, true );
+if ( in_browser() ) {
+    
+    draw_clear( background_colour );
+    
+    shader_set( shd_z_lighting );
+    shader_set_uniform_f( shader_get_uniform( shd_z_lighting, "u_vAmbientColour" ), 0.1, 0.1, 0.13, 0.0 );
+    texture_set_stage( shader_get_sampler_index( shd_z_lighting, "u_sDepth" ), global.render_zsurf_texture );
+    
+    global.render_pass = e_render.diffuse;
+    for( var _i = 0; _i &lt; global.render_queue_size; _i++ ) {
+        var _inst = global.render_queue[_i];
+        with( _inst ) event_perform( ev_draw, 0 );
+    }
+    
+    shader_reset();
 
-global.render_pass = e_render.diffuse;
-shader_set( shd_z_lighting );
-shader_set_uniform_f( shader_get_uniform( shd_z_lighting, "u_vAmbientColour" ), 0.1, 0.1, 0.13, 0.0 );
-texture_set_stage( shader_get_sampler_index( shd_z_lighting, "u_sDepth" ), global.render_zsurf_texture );
+} else {
+    
+    d3d_end();
 
-for( var _i = 0; _i &lt; global.render_queue_size; _i++ ) {
-    var _inst = global.render_queue[_i];
-    with( _inst ) event_perform( ev_draw, 0 );
 }
 
-shader_reset();
+
 d3d_set_projection_ortho( 0, 0, view_wview[0], view_hview[0], 0 );
 d3d_set_culling( false );
 if ( keyboard_check( vk_shift ) ) draw_surface_ext( global.render_zsurf, 0, 0, 1, 1, 0, c_blue, 1  );
@@ -172,18 +171,38 @@ if ( keyboard_check( vk_shift ) ) draw_surface_ext( global.render_zsurf, 0, 0, 1
 
 frame_start_time = get_timer();
 
+var _colour = make_colour_hsv( ( current_time / 10 ) mod 256, 255, 255 );
+with( obj_debug ) d3d_light_define_point( 0,  test_light_x, test_light_y, test_light_z,   200,   c_white );
+d3d_light_define_point( 1,    0,   0, 50,   100,  _colour  );
+d3d_light_define_point( 2,  320,   0, 50,   100,  _colour  );
+d3d_light_define_point( 3,  320, 320, 50,   100,  _colour  );
+d3d_light_define_point( 4,    0, 320, 50,   100,  _colour  );
+d3d_light_enable( 0, true );
+d3d_light_enable( 1, true );
+d3d_light_enable( 2, true );
+d3d_light_enable( 3, true );
+d3d_light_enable( 4, true );
+
+if ( in_browser() ) {
+    global.render_queue_size = 0;
+    global.render_pass = e_render.zwrite;
+    if ( !surface_exists( global.render_zsurf ) ) global.render_zsurf = surface_create( 320, 240 );
+    global.render_zsurf_texture = surface_get_texture( global.render_zsurf );
+    surface_set_target( global.render_zsurf );
+    draw_clear( c_white );
+    surface_reset_target();
+    draw_clear( c_white );
+} else {
+    d3d_start();
+    d3d_set_hidden( true );
+    global.render_pass = e_render.diffuse;
+    shader_set( shd_psx );
+    shader_set_uniform_f( shader_get_uniform( shd_psx, "u_vAmbientColour" ), 0.1, 0.1, 0.13, 0.0 );
+}
+
 d3d_set_culling( false );
 
-global.render_queue_size = 0;
-global.render_pass = e_render.zwrite;
-if ( !surface_exists( global.render_zsurf ) ) global.render_zsurf = surface_create( 320, 240 );
-global.render_zsurf_texture = surface_get_texture( global.render_zsurf );
-surface_set_target( global.render_zsurf );
-draw_clear( c_white );
-surface_reset_target();
-
 draw_set_colour( c_white );
-draw_clear( c_white );
 with( obj_example ) d3d_set_projection_ext( x, y, z,   look_x, look_y, look_z,   0, 0, 1,   60, view_wview[0]/view_hview[0], 1, 1000 );
 </string>
           </argument>

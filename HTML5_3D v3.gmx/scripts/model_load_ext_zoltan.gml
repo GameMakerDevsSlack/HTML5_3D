@@ -22,11 +22,11 @@ for (i=0;file_text_eof(fp)==false;i+=1) {
     
     if (string_char_at(row,1)=="v" && string_char_at(row,2)==" ") {
         row=string_delete(row,1,string_pos(" ",row));
-        vx=real(string_copy(row,1,string_pos(" ",row)));
+        vx=real(string_copy(row,1,string_pos(" ",row))) * 100;
         row=string_delete(row,1,string_pos(" ",row));
-        vy=real(string_copy(row,1,string_pos(" ",row)));
+        vy=real(string_copy(row,1,string_pos(" ",row))) * 100;
         row=string_delete(row,1,string_pos(" ",row));
-        vz=real(string_copy(row,1,string_length(row)));
+        vz=real(string_copy(row,1,string_length(row))) * 100;
         ds_list_add(vertex_list1,vx);
         ds_list_add(vertex_list2,vy);
         ds_list_add(vertex_list3,vz);
