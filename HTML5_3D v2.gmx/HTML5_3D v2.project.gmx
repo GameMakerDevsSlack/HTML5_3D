@@ -102,6 +102,7 @@
     <shader type="GLSLES">shaders\shd_z_copy_flipped.shader</shader>
     <shader type="GLSLES">shaders\shd_z_copy.shader</shader>
     <shader type="GLSLES">shaders\shd_z_diffuse.shader</shader>
+    <shader type="GLSLES">shaders\shd_z_lighting.shader</shader>
     <shader type="GLSLES">shaders\shd_psx.shader</shader>
     <shader type="GLSLES">shaders\shd_dither.shader</shader>
     <shader type="GLSLES">shaders\shd_pass_through.shader</shader>

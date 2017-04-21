@@ -44,13 +44,13 @@ vbf_test = vertex_create_buffer();
 var _vbuff = vbf_test;
 vertex_begin( _vbuff, global.vft_simple );
 
-for( var _x = 0; _x &lt; 320; _x += 320 ) {
-    for( var _y = 0; _y &lt; 320; _y += 329 ) {
+for( var _x = 0; _x &lt; 320; _x += 64 ) {
+    for( var _y = 0; _y &lt; 320; _y += 64 ) {
         
         var _p_l = _x;
         var _p_t = _y;
-        var _p_r = _x + 320;
-        var _p_b = _y + 320;
+        var _p_r = _x + 64;
+        var _p_b = _y + 64;
         
         vertex_position_3d( _vbuff, _p_l, _p_t, 0 ); vertex_texcoord( _vbuff, 0, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );
         vertex_position_3d( _vbuff, _p_r, _p_t, 0 ); vertex_texcoord( _vbuff, 1, 0 ); vertex_colour( _vbuff, c_white, 1 ); vertex_normal( _vbuff, 0, 0, 1 );

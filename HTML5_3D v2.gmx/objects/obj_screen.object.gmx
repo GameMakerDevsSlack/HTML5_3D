@@ -31,7 +31,8 @@ persistent = true;
 
 smoothed_timer = 100;
 frame_start_time = get_timer();
-do_dither = false;
+do_lighting = true;
+do_dither = true;
 
 vertex_format_begin();
 vertex_format_add_position_3d();
@@ -73,7 +74,6 @@ global.render_zsurf_texture = surface_get_texture( global.render_zsurf );
             <kind>1</kind>
             <string>///Draw GUI Begin
 
-//draw_clear( background_colour );
 if ( do_dither ) {
     
     draw_enable_alphablend( false );
@@ -118,8 +118,9 @@ smoothed_timer = lerp( smoothed_timer, get_timer() - frame_start_time, 0.008 );
             <string>///Draw End
 
 shader_reset();
+draw_clear( background_colour );
 
-/*d3d_set_lighting( true );
+var _colour = make_colour_hsv( ( current_time / 10 ) mod 256, 255, 255 );
 with( obj_debug ) d3d_light_define_point( 0,  test_light_x, test_light_y, test_light_z,   200,   c_white );
 d3d_light_define_point( 1,    0,   0, 50,   100,  _colour  );
 d3d_light_define_point( 2,  320,   0, 50,   100,  _colour  );
@@ -131,13 +132,10 @@ d3d_light_enable( 2, true );
 d3d_light_enable( 3, true );
 d3d_light_enable( 4, true );
 
-shader_set( shd_psx );
-shader_set_uniform_f( shader_get_uniform( shd_psx, "u_vAmbientColour" ), 0.1, 0.1, 0.13, 0.0 );
-*/
-
 global.render_pass = e_render.diffuse;
-shader_set( shd_z_diffuse );
-texture_set_stage( shader_get_sampler_index( shd_z_diffuse, "u_sDepth" ), global.render_zsurf_texture );
+shader_set( shd_z_lighting );
+shader_set_uniform_f( shader_get_uniform( shd_z_lighting, "u_vAmbientColour" ), 0.1, 0.1, 0.13, 0.0 );
+texture_set_stage( shader_get_sampler_index( shd_z_lighting, "u_sDepth" ), global.render_zsurf_texture );
 
 for( var _i = 0; _i &lt; global.render_queue_size; _i++ ) {
     var _inst = global.render_queue[_i];
