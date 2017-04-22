@@ -30,6 +30,34 @@
 z = 20;
 
 alarm[0] = 1 * room_speed;
+
+emitter = audio_emitter_create();
+audio_emitter_falloff( emitter, 100, 300, 1 );
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Destroy
+
+audio_emitter_free( emitter );
 </string>
           </argument>
         </arguments>
@@ -54,12 +82,9 @@ alarm[0] = 1 * room_speed;
             <kind>1</kind>
             <string>///Alarm 0
 
-sound_instance = sound_instance_play( global.sound_prop_sine_440, 1 );
-sound_instance_update( sound_instance,
-                       obj_camera.x     , obj_camera.y     , obj_camera.z     ,
-                       obj_camera.look_x, obj_camera.look_y, obj_camera.look_z,
-                       x                , y                , z );
-
+audio_play_sound_on( emitter, snd_test, false, 1 );
+audio_play_sound_on( emitter, snd_test_reverb, false, 1 );
+//audio_play_sound_at( snd_test,   x, y, z,   150, 1000, 1, false, 1 );
 alarm[0] = 1 * room_speed;
 </string>
           </argument>
@@ -85,15 +110,7 @@ alarm[0] = 1 * room_speed;
             <kind>1</kind>
             <string>///Step
 
-if ( instance_exists( obj_camera ) ) and ( keyboard_check_pressed( vk_shift ) ) {
-    
-    var _instance = sound_instance_play( global.sound_prop_sine_440, 1 );
-    sound_instance_update( _instance,
-                           obj_camera.x     , obj_camera.y     , obj_camera.z     ,
-                           obj_camera.look_x, obj_camera.look_y, obj_camera.look_z,
-                           x                , y                , z );
-    
-}
+audio_emitter_position( emitter, x, y, z );
 </string>
           </argument>
         </arguments>

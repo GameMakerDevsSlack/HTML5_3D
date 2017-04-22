@@ -29,73 +29,10 @@
 
 persistent = true;
 
-global.sound_prop_sine_440 = sound_define_properties( snd_test_left, snd_test_right, snd_test_reverb,
+global.sound_prop_sine_440 = sound_define_properties( snd_test, snd_test_reverb,
                                                       0.5, 50, 1500, 0.7,
                                                       0.0, 1.0, 0, 800, 0.3,
                                                       1.0 );
-
-lst_sound_instance = ds_list_create();
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="1" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Destroy
-
-ds_list_destroy( lst_sound_instance );
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Step
-
-var _size = ds_list_size( lst_sound_instance );
-for( var _i = _size-1; _i &gt;= _size; _i-- ) {
-    
-    var _instance = lst_sound_instance[| _i ];
-    
-    if ( !audio_is_playing( _instance[ e_sound_instance.left_instance ] )
-    and !audio_is_playing( _instance[ e_sound_instance.right_instance ] )
-    and !audio_is_playing( _instance[ e_sound_instance.reverb_instance ] ) ) {
-        ds_list_delete( lst_sound_instance, _i );
-    }
-    
-}
 </string>
           </argument>
         </arguments>

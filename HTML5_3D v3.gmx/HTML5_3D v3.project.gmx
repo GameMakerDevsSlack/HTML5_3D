@@ -77,9 +77,8 @@
     <extension index="0">extensions\PointerLock</extension>
   </NewExtensions>
   <sounds name="sound">
-    <sound>sound\snd_test_left</sound>
-    <sound>sound\snd_test_right</sound>
     <sound>sound\snd_test_reverb</sound>
+    <sound>sound\snd_test</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_floor</sprite>
@@ -103,9 +102,6 @@
     <scripts name="sound">
       <script>scripts\sound_define_properties.gml</script>
       <script>scripts\sound_falloff_curve.gml</script>
-      <script>scripts\sound_instance_register.gml</script>
-      <script>scripts\sound_instance_play.gml</script>
-      <script>scripts\sound_instance_update.gml</script>
     </scripts>
     <script>scripts\dither_make_sprite.gml</script>
     <scripts name="gamepad">
