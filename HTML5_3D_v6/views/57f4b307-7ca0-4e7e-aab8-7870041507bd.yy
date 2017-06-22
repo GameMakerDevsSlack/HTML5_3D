@@ -8,7 +8,7 @@
         "34d4f84e-a92a-4181-aad4-9d6344a06206"
     ],
     "filterType": "GMScript",
-    "folderName": "sizer",
+    "folderName": "reizer",
     "isDefaultView": false,
     "localisedFolderName": ""
 }

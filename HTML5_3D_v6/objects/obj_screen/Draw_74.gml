@@ -13,8 +13,7 @@ if ( do_dither ) {
     
 } else {
     
-    if ( !keyboard_check( ord( "K" ) ) ) draw_surface_ext( application_surface, 0, 0, 1, 1, 0, c_white, 1 );
-	trace_m( "screen", display_get_gui_width(), display_get_gui_height(), surface_get_width( application_surface ), surface_get_height( application_surface ) );
+    draw_surface_ext( application_surface, 0, 0, 1, 1, 0, c_white, 1 );
 	
 }
 

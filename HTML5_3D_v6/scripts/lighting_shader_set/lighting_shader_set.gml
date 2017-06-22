@@ -1,0 +1,1 @@
+shader_set( (global.lighting_instance).lighting_shader );

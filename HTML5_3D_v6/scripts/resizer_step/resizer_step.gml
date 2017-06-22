@@ -66,8 +66,6 @@ if ( no_flip > 0 ) {
 	    if ( RESTRICT_V > 0 ) _top = max( _top, 0 );
 	    if ( RESTRICT_V < 0 ) _top = min( _top, browser_height - _game_h );
 		
-		trace_m( "sizer", _left, _top, _game_w, _game_h );
-		
 	    window_set_position( _left, _top );
 		dpi = js_call( "dpi_scale" );
 		window_set_size( dpi*_game_w, dpi*_game_h );
@@ -76,23 +74,25 @@ if ( no_flip > 0 ) {
 	}
 
 }
-/*
+
 if ( room == rm_audio ) {
 	if ( global.on_mobile ) {
 		
 		if ( mouse_get_released(0) ) {
 			audio_master_gain( mouse_get_x(0) < room_width div 2 );
 			room_goto_next();
+			return true;
 		}
 		
 	} else {
 		
 		audio_master_gain( 1 );
 		room_goto_next();
+		return true;
 		
 	}
 }
-*/
+
 /*
 if ( !global.on_mobile ) and ( global.on_browser ) {
 	
@@ -112,3 +112,5 @@ if ( !global.on_mobile ) and ( global.on_browser ) {
 	
 }
 */
+
+return false;

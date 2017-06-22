@@ -1,8 +1,8 @@
 {
-    "id": "9aee8558-b62d-4f5b-bc70-6ea4b521f99d",
+    "id": "d77c2f77-196e-4191-b860-22ad3b7b6aa2",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "in_browser",
+    "name": "lighting_init",
     "IsCompatibility": false,
     "IsDnD": false
 }

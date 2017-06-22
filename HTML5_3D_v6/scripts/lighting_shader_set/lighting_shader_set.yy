@@ -1,8 +1,8 @@
 {
-    "id": "7b84ce3e-1a80-467a-97f0-30760fea2aea",
+    "id": "bd846ccb-3950-45f3-825e-9eb51c2aad97",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "sizer_init",
+    "name": "lighting_shader_set",
     "IsCompatibility": false,
     "IsDnD": false
 }
