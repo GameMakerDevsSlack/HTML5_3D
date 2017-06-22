@@ -1,6 +1,6 @@
 var _str = "";
 _str += "CLICK TO LOCK MOUSE!";
-if ( !in_browser() ) _str += "\nSPACE TO UNLOCK MOUSE!";
+if ( !global.on_browser ) _str += "\nSPACE TO UNLOCK MOUSE!";
 _str += "\nWASD TO MOVE!";
 
 if ( debug_visible ) {
@@ -12,7 +12,7 @@ if ( debug_visible ) {
     _str += "\n\nLISTENER X=" + string_format( _listener_data[? "x" ], 4, 2 );
     _str += "\nLISTENER Y=" + string_format( _listener_data[? "y" ], 4, 2 );
     _str += "\nLISTENER Z=" + string_format( _listener_data[? "z" ], 4, 2 );
-    if ( in_browser() ) _str += "\nLOCKED: " + mouse_is_locked();
+    if ( global.on_browser ) _str += "\nLOCKED: " + mouse_is_locked();
 	
 	draw_set_colour( c_black );
 	draw_set_alpha( 0.3 );

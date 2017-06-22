@@ -27,7 +27,8 @@ do_flip = false;
 
 js_add( "resized", "var r = window.js_resized; window.js_resized = 0; return r;" );
 js_add( "dpi_scale", "return window.devicePixelRatio || 1;" );
-js_add3( "set_size", "id", "w", "h", "var c = document.getElementById(id); c.style.width = w + 'px'; c.style.height = h + 'px';" );
+js_add3( "set_size", "_id", "_w", "_h", "var _canvas = document.getElementById( _id ); _canvas.style.width = _w + 'px'; _canvas.style.height = _h + 'px';" );
+js_add1( "scroll_down", "height", "document.getElementById( 'gm4html5_div_id' ).style.height = ~~( height + 128 ) + 'px'; window.scrollTo( 0, 1 );")
 
 var _disp_w = display_get_width();
 var _disp_h = display_get_height()

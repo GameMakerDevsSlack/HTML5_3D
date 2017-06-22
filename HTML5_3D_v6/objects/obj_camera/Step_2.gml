@@ -3,7 +3,7 @@ if ( keyboard_check( vk_escape ) ) game_end();
 var _click = mouse_check_button_pressed( mb_left );
 var _space = keyboard_check_pressed( vk_space );
 
-if ( in_browser() ) {
+if ( global.on_browser ) {
     mouse_locked = mouse_is_locked();
     if ( _click ) and ( !mouse_locked ) mouse_lock();
     if ( _space ) and (  mouse_locked ) mouse_unlock();

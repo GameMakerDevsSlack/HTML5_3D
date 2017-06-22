@@ -18,7 +18,7 @@
     "option_html5_index": "index.html",
     "option_html5_interpolate_pixels": false,
     "option_html5_jsprepend": "",
-    "option_html5_loadingbar": "js_loading",
+    "option_html5_loadingbar": "Use Default",
     "option_html5_localrunalert": false,
     "option_html5_outputdebugtoconsole": true,
     "option_html5_outputname": "index.html",

@@ -4,7 +4,7 @@ if ( no_flip > 0 ) {
 	
 } else if ( global.on_browser ) {
 	
-	var _force = keyboard_check_pressed( ord( "J" ) );
+	var _force = false;
 	
 	if ( js_call("resized") ) or ( last_room != room ) or ( do_refresh ) or ( _force ) {
 		
@@ -70,47 +70,8 @@ if ( no_flip > 0 ) {
 		dpi = js_call( "dpi_scale" );
 		window_set_size( dpi*_game_w, dpi*_game_h );
 		js_call3( "set_size", window_handle(), _game_w, _game_h );
+		js_call1( "scroll_down", browser_height );
 	
 	}
 
 }
-
-if ( room == rm_audio ) {
-	if ( global.on_mobile ) {
-		
-		if ( mouse_get_released(0) ) {
-			audio_master_gain( mouse_get_x(0) < room_width div 2 );
-			room_goto_next();
-			return true;
-		}
-		
-	} else {
-		
-		audio_master_gain( 1 );
-		room_goto_next();
-		return true;
-		
-	}
-}
-
-/*
-if ( !global.on_mobile ) and ( global.on_browser ) {
-	
-    var _game_w = game_width();
-    var _game_h = game_height();
-    var _disp_w = display_get_width();
-    var _disp_h = display_get_height();
-	
-    var _factor = min( _disp_w/_game_w, _disp_h/_game_h, SCALE_FACTOR );
-    var _w = floor( _game_w*_factor );
-    var _h = floor( _game_h*_factor );
-	
-    window_set_position( ( _disp_w - _w ) div 2, ( _disp_h - _h ) div 2 );
-	dpi = js_call( "dpi_scale" );
-	window_set_size( dpi*_game_w, dpi*_h );
-	js_call3( "set_size", window_handle(), _w, _h );
-	
-}
-*/
-
-return false;

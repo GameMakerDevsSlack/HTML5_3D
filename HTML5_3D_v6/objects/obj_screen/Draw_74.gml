@@ -13,7 +13,15 @@ if ( do_dither ) {
     
 } else {
     
-    draw_surface_ext( application_surface, 0, 0, 1, 1, 0, c_white, 1 );
+	if ( do_lut ) {
+		shader_set( shd_lut );
+		texture_set_stage( shader_get_sampler_index( shd_lut, "s_Lut" ), sprite_get_texture( spr_lut_test, 0 ) );
+		shader_set_uniform_f( shader_get_uniform( shd_lut, "u_Mix" ), norm_dsin( current_time/10 ) );
+		draw_surface_ext( application_surface, 0, 0, 1, 1, 0, c_white, 1 );
+		shader_reset();
+	} else {
+		draw_surface_ext( application_surface, 0, 0, 1, 1, 0, c_white, 1 );
+	}
 	
 }
 

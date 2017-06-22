@@ -2,7 +2,7 @@
     "id": "07d2687c-731f-47a1-b5e7-e27a6ec568da",
     "modelName": "GMRoom",
     "mvc": "1.0",
-    "name": "rm_audio",
+    "name": "rm_splash",
     "IsDnD": false,
     "creationCodeFile": "",
     "inheritCode": false,

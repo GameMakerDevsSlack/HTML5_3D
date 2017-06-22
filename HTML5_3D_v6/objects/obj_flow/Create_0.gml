@@ -9,9 +9,6 @@ global.on_browser = !( os_browser == browser_not_a_browser );
 
 resizer_init();
 vertex_buffer_definitions();
-lighting_init( shd_lighting_pixel );
-global.dither_surface = dither_make_surface();
-global.dither_texture = surface_get_texture( global.dither_surface );
 
 instance_create_depth( 0, 0, 0, obj_screen );
 instance_create_depth( 0, 0, 0, obj_sound_manager );

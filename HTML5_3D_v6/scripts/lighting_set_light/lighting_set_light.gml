@@ -14,6 +14,11 @@ var _range  = argument4;
 var _colour = argument5;
 var _alpha  = argument6;
 
+if ( _light >= 8 ) {
+	show_debug_message( "lighting_set_light: WARNING light index has exceeded {7}" );
+	return false;
+}
+
 with( global.lighting_instance ) {
 	shader_set_uniform_f( lighting_vLightPosRange[_light], _x, _y, _z, _range );
 	shader_set_uniform_f( lighting_vLightColour[_light]  , colour_get_red(   _colour )/255,
@@ -21,3 +26,5 @@ with( global.lighting_instance ) {
 														   colour_get_blue(  _colour )/255,
 														   _alpha );
 }
+
+return true;
