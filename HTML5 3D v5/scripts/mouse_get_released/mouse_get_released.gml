@@ -1,0 +1,1 @@
+return device_mouse_check_button_released( argument0, mb_left );
