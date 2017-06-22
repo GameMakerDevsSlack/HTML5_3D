@@ -16,4 +16,3 @@ _result[0] = _r*_rx;
 _result[1] = _r*_ry;
 _result[2] = _r*_rz;
 return _result;
-

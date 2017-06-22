@@ -19,4 +19,3 @@ _result[0] = _y1*_z2 - _z1*_y2;
 _result[1] = _z1*_x2 - _x1*_z2;
 _result[2] = _x1*_y2 - _y1*_x2;
 return _result;
-

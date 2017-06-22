@@ -31,6 +31,14 @@
     },
     "resources": [
         {
+            "Key": "0511d365-5fa5-4e6b-932c-f5d13eb6b60e",
+            "Value": {
+                "id": "d130ba53-c1b4-463b-bcb8-683e70f30cb8",
+                "resourcePath": "shaders\\shd_depth\\shd_depth.yy",
+                "resourceType": "GMShader"
+            }
+        },
+        {
             "Key": "073e7521-36b3-44c5-909e-57b8ab463b6d",
             "Value": {
                 "id": "a6b12c88-add3-4840-82e6-c3daff014a58",
@@ -532,6 +540,14 @@
                 "id": "8d9a9be9-25eb-4dd9-b619-119460728a7d",
                 "resourcePath": "views\\e8e77b5d-e7f7-4453-b2c2-d18f351104df.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "ea19c137-f1b9-486f-ac3b-3e7f939b5d2d",
+            "Value": {
+                "id": "325b6023-881d-40f7-b5d7-b30bb09401f9",
+                "resourcePath": "shaders\\shd_depth_unpack\\shd_depth_unpack.yy",
+                "resourceType": "GMShader"
             }
         },
         {
