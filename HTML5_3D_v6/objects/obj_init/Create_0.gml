@@ -1,4 +1,5 @@
-surface_resize( application_surface, 640, 960 );
+surface_resize( application_surface, game_width(), game_height() );
+display_set_gui_size( game_width(), game_height() );
 application_surface_draw_enable( false );
 
 global.on_mobile = ( ( os_type != os_windows ) and ( os_type != os_macosx ) and ( os_type != os_linux ) );

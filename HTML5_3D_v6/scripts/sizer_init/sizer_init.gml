@@ -9,24 +9,21 @@
 #macro ALIGN_H fa_center
 #macro ALIGN_V fa_middle
 
-global.sizer_browser_width = 0;
-global.sizer_browser_height = 0;
-global.sizer_last_room = noone;
-global.sizer_return_room = noone;
+instance = id;
+last_room = noone;
+return_room = noone;
 
-global.sizer_browser_width = 0;
-global.sizer_browser_height = 0;
-global.sizer_last_room = -1;
-global.sizer_priority = 0;
-global.sizer_min_x_scale = 0;
-global.sizer_max_x_scale = 0;
-global.sizer_min_y_scale = 0;
-global.sizer_max_y_scale = 0;
-global.sizer_dpi = 1;
+last_room = -1;
+priority = 0;
+min_x_scale = 0;
+max_x_scale = 0;
+min_y_scale = 0;
+max_y_scale = 0;
+dpi = 1;
 
-global.sizer_no_flip = 1;
-global.sizer_do_refresh = true;
-global.sizer_do_flip = false;
+no_flip = 1;
+do_refresh = true;
+do_flip = false;
 
 js_add( "resized", "var r = window.js_resized; window.js_resized = 0; return r;" );
 js_add( "dpi_scale", "return window.devicePixelRatio || 1;" );
@@ -42,11 +39,11 @@ if ( global.on_mobile ) {
 	var _x_ratio = _disp_w/_game_w;
 	var _y_ratio = _disp_h/_game_h;
    
-	global.sizer_max_x_scale = min( _x_ratio, _y_ratio );
+	max_x_scale = min( _x_ratio, _y_ratio );
 	
-	if ( global.sizer_max_x_scale == _y_ratio ) and ( _game_w < _game_h ) and ( room != rm_flip ) {
-		if ( _x_ratio - _y_ratio <= 0.10416667 ) global.sizer_max_x_scale = _x_ratio;
+	if ( max_x_scale == _y_ratio ) and ( _game_w < _game_h ) and ( room != rm_flip ) {
+		if ( _x_ratio - _y_ratio <= 0.10416667 ) max_x_scale = _x_ratio;
 	}
    
-	global.sizer_max_y_scale = global.sizer_max_x_scale;
+	max_y_scale = max_x_scale;
 }
